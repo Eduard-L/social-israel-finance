@@ -1,6 +1,5 @@
 import { TextField, Typography } from "@mui/material";
 import { InputAdornment } from "@material-ui/core";
-
 import Button from "@mui/material/Button";
 import { useContext, useState } from "react";
 import { DataContext } from "../context/DataContext";
@@ -13,10 +12,11 @@ export function IdStep({ onBtnClick, id, setId }) {
   const { isEnglish, direction } = data;
 
   return (
-    <div
-      className="flex flex-col justify-between items-center h-2/3"
-      style={{ width: 320 }}
-    >
+    // <div
+    //   className="flex flex-col justify-between items-center h-2/3"
+    //
+    // >
+    <>
       <div className="flex flex-row ">
         <Button
           className="rounded-full bg-blue-700"
@@ -68,6 +68,9 @@ export function IdStep({ onBtnClick, id, setId }) {
           type="text"
           value={id}
           error={id.length !== 9 && id.length > 0}
+          helperText={
+            id.length !== 9 && id.length > 0 && "נא מלא תעודת זהות תקינה"
+          }
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
@@ -98,6 +101,7 @@ export function IdStep({ onBtnClick, id, setId }) {
         קבלת קוד אימות אישי
         <KeyboardBackspaceIcon />
       </Button>
-    </div>
+    </>
+    // </div>
   );
 }
