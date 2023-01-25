@@ -3,6 +3,7 @@ import { DataContext } from "../context/DataContext";
 import { useContext, useState } from "react";
 import { VerifyCode } from "./VerifyCode";
 import { api } from "../api/Api";
+import { EmployeeType } from "./EmployeeType";
 
 export function Main({}) {
   const { data, setData, setStep, step } = useContext(DataContext);
@@ -46,8 +47,8 @@ export function Main({}) {
       const employeeFormDetails = await api.handleVerifyCode(userId, code);
 
       if (employeeFormDetails) {
-        console.log(employeeFormDetails)
-        alert(JSON.stringify(employeeFormDetails))
+        console.log(employeeFormDetails);
+        alert(JSON.stringify(employeeFormDetails));
         // if response is ok and sms was sented
         // save all the data in global state
         // redirect user to next page
@@ -76,6 +77,14 @@ export function Main({}) {
       )}
       {step === 1 ? (
         <VerifyCode
+          onSendCode={handleVerifySmsCode}
+          onSmsSend={handleSendSmsBtnClick}
+        />
+      ) : (
+        " "
+      )}
+      {step === 2 ? (
+        <EmployeeType
           onSendCode={handleVerifySmsCode}
           onSmsSend={handleSendSmsBtnClick}
         />
