@@ -36,12 +36,28 @@ export function Main({}) {
     setData({
       ...data,
       userId: id,
-      userName: "ישראל ישראלי",
+      userName: data.userName,
     });
     setStep(step + 1);
   };
 
   const handleVerifySmsCode = async (code) => {
+    try {
+      const employeeFormDetails = await api.handleVerifyCode(userId, code);
+
+      if (employeeFormDetails) {
+        console.log(employeeFormDetails)
+        alert(JSON.stringify(employeeFormDetails))
+        // if response is ok and sms was sented
+        // save all the data in global state
+        // redirect user to next page
+      } else {
+        // handleError
+      }
+    } catch (e) {
+      console.log(e);
+      alert("something went wrong");
+    }
     // send the verify code to the server
     alert("code was veryfied");
     setStep(step + 1);

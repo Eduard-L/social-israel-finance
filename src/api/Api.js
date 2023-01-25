@@ -12,12 +12,27 @@ export class Api {
     }
 
     async handleVerifyId(id) {
-        debugger
         const requestOptions = {
             method: "post",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 userId: id,
+            }),
+        };
+        const employeInfo = await fetch(`${this._baseUrl}/auth/login`, requestOptions);
+
+        return this._checkResponse(employeInfo)
+    }
+
+    async handleVerifyCode(id, code) {
+        const requestOptions = {
+            method: "post",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                userId: id,
+                code: code
             }),
         };
         const employeInfo = await fetch(`${this._baseUrl}/auth/verify`, requestOptions);
