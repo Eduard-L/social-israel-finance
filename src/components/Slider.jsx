@@ -7,7 +7,7 @@ import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 
 export function Steper({ onNextStep, onPreStep, step }) {
   const theme = useTheme();
-  const maxSteps = 6;
+  const maxSteps = 7;
 
   return (
     <MobileStepper

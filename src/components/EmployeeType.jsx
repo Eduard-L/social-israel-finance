@@ -9,9 +9,9 @@ export function EmployeeType({}) {
   const { userName, userId, direction } = data;
   const [type, setType] = useState(0);
 
-  const disableStyle = {
-    backgroundColor: "lightgrey",
-    color: "grey",
+  const handleNextStep = () => {
+    setData({ ...data, employeeType: type });
+    setStep(step + 1);
   };
 
   return (
@@ -27,7 +27,7 @@ export function EmployeeType({}) {
         <Typography className="text-center mt-4">
           : יש למלא את הטופס בהתאם למצבך התעסוקתי
         </Typography>
-        <div class="flex flex-row flex-wrap gap-2 items-center justify-center mt-4">
+        <div className="flex flex-row flex-wrap gap-2 items-center justify-center mt-4">
           <Button
             className=" rounded-full flex flex-row self-start bg-blue-700  "
             variant="contained"
@@ -36,7 +36,7 @@ export function EmployeeType({}) {
               width: 155,
               backgroundColor: type === 0 ? "lightgrey" : "white",
               color: type === 0 ? "grey" : "blue",
-              border: !(type === 0) && "1px solid blue",
+              border: !(type === 0) && "2px solid #4091df",
             }}
             onClick={() => setType(0)}
           >
@@ -49,8 +49,8 @@ export function EmployeeType({}) {
               direction: direction,
               width: 155,
               backgroundColor: type === 1 ? "lightgrey" : "white",
-              color: type === 1 ? "grey" : "blue",
-              border: !(type === 1) && "1px solid blue",
+              color: type === 1 ? "grey" : "#4091df",
+              border: !(type === 1) && "2px solid #4091df",
             }}
             onClick={() => setType(1)}
           >
@@ -63,8 +63,8 @@ export function EmployeeType({}) {
               direction: direction,
               width: 155,
               backgroundColor: type === 2 ? "lightgrey" : "white",
-              color: type === 2 ? "grey" : "blue",
-              border: !(type === 2) && "1px solid blue",
+              color: type === 2 ? "grey" : "#4091df",
+              border: !(type === 2) && "2px solid #4091df",
             }}
             onClick={() => setType(2)}
           >
@@ -77,8 +77,8 @@ export function EmployeeType({}) {
               direction: direction,
               width: 155,
               backgroundColor: type === 3 ? "lightgrey" : "white",
-              color: type === 3 ? "grey" : "blue",
-              border: !(type === 3) && "1px solid blue",
+              color: type === 3 ? "grey" : "#4091df",
+              border: !(type === 3) && "2px solid #4091df",
             }}
             onClick={() => setType(3)}
           >
@@ -92,6 +92,7 @@ export function EmployeeType({}) {
           className=" rounded-full bg-blue-700 flex flex-row self-start "
           variant="contained"
           sx={{ direction: direction }}
+          onClick={() => handleNextStep()}
         >
           אפשר להמשיך
           <KeyboardBackspaceIcon />

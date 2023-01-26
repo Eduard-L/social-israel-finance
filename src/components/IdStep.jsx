@@ -12,10 +12,6 @@ export function IdStep({ onBtnClick, id, setId }) {
   const { isEnglish, direction } = data;
 
   return (
-    // <div
-    //   className="flex flex-col justify-between items-center h-2/3"
-    //
-    // >
     <>
       <div className="flex flex-row ">
         <Button
@@ -102,6 +98,5 @@ export function IdStep({ onBtnClick, id, setId }) {
         <KeyboardBackspaceIcon />
       </Button>
     </>
-    // </div>
   );
 }

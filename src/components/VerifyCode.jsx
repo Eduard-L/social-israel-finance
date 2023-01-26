@@ -8,9 +8,8 @@ import ErrorIcon from "@mui/icons-material/Error";
 import { InputAdornment } from "@material-ui/core";
 
 export function VerifyCode({ onSendCode, onSmsSend }) {
-  const { data, setData, setStep, step } = useContext(DataContext);
-  const { userName, userId } = data;
-  const { direction } = data;
+  const { data, setStep, step } = useContext(DataContext);
+  const { userName, userId, direction } = data;
   const [code, setCode] = useState("");
   return (
     <>

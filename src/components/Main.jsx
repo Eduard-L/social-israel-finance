@@ -4,6 +4,8 @@ import { useContext, useState } from "react";
 import { VerifyCode } from "./VerifyCode";
 import { api } from "../api/Api";
 import { EmployeeType } from "./EmployeeType";
+import { Success } from "./Success";
+import { AdditionalInfo } from "./AdditionalInfo";
 
 export function Main({}) {
   const { data, setData, setStep, step } = useContext(DataContext);
@@ -22,24 +24,20 @@ export function Main({}) {
       const data = await api.handleVerifyId(id);
 
       if (data) {
-        // if response is ok and sms was sented
-        // save all the data in global state
-        // redirect user to next page
+        setData({
+          ...data,
+          userId: id,
+          userName: data.userName,
+        });
+        alert("sms was sent succefully and the id was saved for next page"); // success response
+        setStep(step + 1);
       } else {
-        // handleError
+        alert("something went wrong, check your id or connection");
       }
     } catch (e) {
       console.log(e);
-      alert("something went wrong");
+      alert("something went wrong, check your id or connection");
     }
-
-    alert("sms was sent succefully and the id was saved for next page"); // success response
-    setData({
-      ...data,
-      userId: id,
-      userName: data.userName,
-    });
-    setStep(step + 1);
   };
 
   const handleVerifySmsCode = async (code) => {
@@ -47,22 +45,16 @@ export function Main({}) {
       const employeeFormDetails = await api.handleVerifyCode(userId, code);
 
       if (employeeFormDetails) {
-        console.log(employeeFormDetails);
-        alert(JSON.stringify(employeeFormDetails));
-        // if response is ok and sms was sented
-        // save all the data in global state
-        // redirect user to next page
+        setData({ ...data, employeeInfo: employeeFormDetails });
+        alert("code was veryfied");
+        setStep(step + 1);
       } else {
-        // handleError
+        alert("something went wrong , try again");
       }
     } catch (e) {
       console.log(e);
       alert("something went wrong");
     }
-    // send the verify code to the server
-    alert("code was veryfied");
-    setStep(step + 1);
-    // should i save tht user was veryfied in case that he will came back to main page ?
   };
 
   return (
@@ -91,6 +83,10 @@ export function Main({}) {
       ) : (
         " "
       )}
+      {step === 3 ? <>here should be form component</> : " "}
+      {step === 4 ? <>here should be file uploader</> : " "}
+      {step === 5 ? <AdditionalInfo /> : " "}
+      {step === 6 ? <Success /> : " "}
     </div>
   );
 }
