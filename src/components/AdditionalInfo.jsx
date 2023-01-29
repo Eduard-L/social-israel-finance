@@ -16,7 +16,7 @@ export function AdditionalInfo() {
           className="w-full mt-3 p-4 "
           style={{
             height: 280,
-            border: "1px solid #d0d0d0",
+            border: "2px solid #d0d0d0",
             direction: direction,
             resize: "none",
           }}
@@ -24,7 +24,7 @@ export function AdditionalInfo() {
       </div>
       <div className="flex flex-row justify-between w-full">
         <Button
-          className=" rounded-full bg-blue-700 flex flex-row self-start "
+          className=" rounded-full bg-blue-500 flex flex-row self-start "
           variant="contained"
           sx={{ direction: direction }}
           onClick={() => {
@@ -35,7 +35,7 @@ export function AdditionalInfo() {
           שליחת דיווח
         </Button>
         <Button
-          className=" rounded-full flex flex-row self-start bg-blue-700  "
+          className=" rounded-full flex flex-row self-start bg-blue-500  "
           variant="contained"
           style={{
             direction: direction,

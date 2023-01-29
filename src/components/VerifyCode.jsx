@@ -11,6 +11,11 @@ export function VerifyCode({ onSendCode, onSmsSend }) {
   const { data, setStep, step } = useContext(DataContext);
   const { userName, userId, direction } = data;
   const [code, setCode] = useState("");
+
+  let hiddenPhone = "0507564578";
+  let subPhone = hiddenPhone.substring(3, 8);
+  hiddenPhone = hiddenPhone.replace(subPhone, "X".repeat(subPhone.length));
+
   return (
     <>
       <div className="flex flex-col">
@@ -18,7 +23,7 @@ export function VerifyCode({ onSendCode, onSmsSend }) {
           ,שלום {userName}
         </Typography>
         <Typography className="text-center" style={{ direction: direction }}>
-          הודעת סמס נשלחה אליך מגורם האשראי, יש להכניס את מספר האימות האישי
+          הודעת סמס נשלחה אליך למס {hiddenPhone}, יש להכניס את מספר האימות האישי
           שקיבלת:
         </Typography>
 
@@ -67,7 +72,7 @@ export function VerifyCode({ onSendCode, onSmsSend }) {
       </div>
       <div className="flex flex-row justify-between w-full">
         <Button
-          className=" rounded-full bg-blue-700 flex flex-row self-start "
+          className=" rounded-full bg-blue-500 flex flex-row self-start "
           variant="contained"
           sx={{ direction: direction }}
           disabled={code.length !== 6}
@@ -77,7 +82,7 @@ export function VerifyCode({ onSendCode, onSmsSend }) {
           <KeyboardBackspaceIcon />
         </Button>
         <Button
-          className=" rounded-full flex flex-row self-start bg-blue-700  "
+          className=" rounded-full flex flex-row self-start bg-blue-500  "
           variant="contained"
           style={{
             direction: direction,

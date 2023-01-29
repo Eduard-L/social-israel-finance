@@ -11,8 +11,8 @@ export function Main({}) {
   const { data, setData, setStep, step } = useContext(DataContext);
   const { userId } = data;
   const [id, setId] = useState(userId ?? "");
-
-  console.log(id);
+  const [method, setMethod] = useState("WhatsApp");
+  console.log(method);
 
   const handleSendSmsBtnClick = async () => {
     if (id.length !== 9) {
@@ -21,13 +21,14 @@ export function Main({}) {
     }
 
     try {
-      const data = await api.handleVerifyId(id);
+      const data = await api.handleVerifyId(id, method);
 
       if (data) {
         setData({
           ...data,
           userId: id,
           userName: data.userName,
+          method: method,
         });
         alert("sms was sent succefully and the id was saved for next page"); // success response
         setStep(step + 1);
@@ -63,7 +64,13 @@ export function Main({}) {
       style={{ width: 320 }}
     >
       {step === 0 ? (
-        <IdStep onBtnClick={handleSendSmsBtnClick} id={id} setId={setId} />
+        <IdStep
+          onBtnClick={handleSendSmsBtnClick}
+          id={id}
+          setId={setId}
+          method={method}
+          setMethod={setMethod}
+        />
       ) : (
         ""
       )}

@@ -1,4 +1,10 @@
-import { TextField, Typography } from "@mui/material";
+import {
+  FormControlLabel,
+  Radio,
+  RadioGroup,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { InputAdornment } from "@material-ui/core";
 import Button from "@mui/material/Button";
 import { useContext, useState } from "react";
@@ -7,7 +13,7 @@ import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import DoneIcon from "@mui/icons-material/Done";
 import ErrorIcon from "@mui/icons-material/Error";
 
-export function IdStep({ onBtnClick, id, setId }) {
+export function IdStep({ onBtnClick, id, setId, method, setMethod }) {
   const { data, setData } = useContext(DataContext);
   const { isEnglish, direction } = data;
 
@@ -15,7 +21,7 @@ export function IdStep({ onBtnClick, id, setId }) {
     <>
       <div className="flex flex-row ">
         <Button
-          className="rounded-full bg-blue-700"
+          className="rounded-full bg-blue-500"
           sx={{
             width: 110,
             transform: "translate(10px, 0px)",
@@ -34,7 +40,7 @@ export function IdStep({ onBtnClick, id, setId }) {
           English
         </Button>
         <Button
-          className=" rounded-full bg-blue-700 "
+          className=" rounded-full bg-blue-500 "
           variant="contained"
           sx={{ width: 110, transform: "translate(-10px, 0px)" }}
           onClick={() =>
@@ -50,17 +56,18 @@ export function IdStep({ onBtnClick, id, setId }) {
         </Button>
       </div>
       <div
-        className="flex flex-col text-center justify-between"
-        style={{ width: 250, direction: direction, height: 100 }}
+        className="flex flex-col text-center justify-between "
+        style={{ width: 250, direction: direction }}
       >
         <Typography variant="subtitle2">
-          לקבל קוד אימות אישי בסמס לצורך כניסה לטופס הדיווח החודשי, יש להכניס
-          מספר תעודת זהות :
+          לקבל קוד אימות אישי לצורך כניסה לטופס הדיווח החודשי, יש להכניס מספר
+          תעודת זהות ולבחור באפשרות השליחה הרצויה:
         </Typography>
 
         <TextField
           id="standard-basic"
           variant="standard"
+          className="mt-2"
           type="text"
           value={id}
           error={id.length !== 9 && id.length > 0}
@@ -86,9 +93,22 @@ export function IdStep({ onBtnClick, id, setId }) {
             }
           }}
         />
+
+        <RadioGroup
+          className="flex flex-row mt-2"
+          value={method}
+          onChange={(e) => setMethod(e.target.value)}
+        >
+          <FormControlLabel
+            value="WhatsApp"
+            control={<Radio />}
+            label="WhatsApp"
+          />
+          <FormControlLabel value="Sms" control={<Radio />} label="Sms" />
+        </RadioGroup>
       </div>
       <Button
-        className=" rounded-full bg-blue-700 flex flex-row self-start "
+        className=" rounded-full bg-blue-500 flex flex-row self-start "
         variant="contained"
         sx={{ direction: direction }}
         disabled={id.length !== 9}

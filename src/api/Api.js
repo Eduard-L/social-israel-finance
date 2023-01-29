@@ -11,12 +11,13 @@ export class Api {
         }
     }
 
-    async handleVerifyId(id) {
+    async handleVerifyId(id, method) {
         const requestOptions = {
             method: "post",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 userId: id,
+                method: method
             }),
         };
         const employeInfo = await fetch(`${this._baseUrl}/auth/login`, requestOptions);

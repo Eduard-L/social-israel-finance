@@ -43,7 +43,7 @@ export function EmployeeType({}) {
             עצמאי
           </Button>
           <Button
-            className=" rounded-full flex flex-row self-start bg-blue-700   "
+            className=" rounded-full flex flex-row self-start bg-blue-500   "
             variant="contained"
             style={{
               direction: direction,
@@ -57,7 +57,7 @@ export function EmployeeType({}) {
             שכיר
           </Button>
           <Button
-            className=" rounded-full flex flex-row self-start bg-blue-700   "
+            className=" rounded-full flex flex-row self-start bg-blue-500   "
             variant="contained"
             style={{
               direction: direction,
@@ -89,7 +89,7 @@ export function EmployeeType({}) {
 
       <div className="flex flex-row justify-between w-full">
         <Button
-          className=" rounded-full bg-blue-700 flex flex-row self-start "
+          className=" rounded-full bg-blue-500 flex flex-row self-start "
           variant="contained"
           sx={{ direction: direction }}
           onClick={() => handleNextStep()}
@@ -98,7 +98,7 @@ export function EmployeeType({}) {
           <KeyboardBackspaceIcon />
         </Button>
         <Button
-          className=" rounded-full flex flex-row self-start bg-blue-700  "
+          className=" rounded-full flex flex-row self-start bg-blue-500  "
           variant="contained"
           style={{
             direction: direction,
