@@ -29,6 +29,7 @@ export function Main({}) {
           userId: id,
           userName: data.userName,
           method: method,
+          hiddenPhone: data.hiddenPhone,
         });
         alert("sms was sent succefully and the id was saved for next page"); // success response
         setStep(step + 1);

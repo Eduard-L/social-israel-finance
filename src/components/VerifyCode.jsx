@@ -9,24 +9,30 @@ import { InputAdornment } from "@material-ui/core";
 
 export function VerifyCode({ onSendCode, onSmsSend }) {
   const { data, setStep, step } = useContext(DataContext);
-  const { userName, userId, direction } = data;
+  const { userName, userId, direction, hiddenPhone } = data;
   const [code, setCode] = useState("");
-
-  let hiddenPhone = "0507564578";
-  let subPhone = hiddenPhone.substring(3, 8);
-  hiddenPhone = hiddenPhone.replace(subPhone, "X".repeat(subPhone.length));
+  const message = `הודעת סמס נשלחה אלייך למס `;
 
   return (
     <>
       <div className="flex flex-col">
-        <Typography className="text-center " style={{ fontWeight: "bold" }}>
+        <Typography className="text-center" style={{ fontWeight: "bold" }}>
           ,שלום {userName}
         </Typography>
+        <div className="flex flex-col">
+          <Typography className="text-center" style={{ direction: direction }}>
+            {message}
+          </Typography>
+          <Typography
+            className="text-center underline "
+            style={{ direction: direction, color: "blue" }}
+          >
+            {hiddenPhone}
+          </Typography>
+        </div>
         <Typography className="text-center" style={{ direction: direction }}>
-          הודעת סמס נשלחה אליך למס {hiddenPhone}, יש להכניס את מספר האימות האישי
-          שקיבלת:
+          יש להכניס את מס' האימות האישי שקיבלת
         </Typography>
-
         <TextField
           id="standard-basic"
           variant="standard"
