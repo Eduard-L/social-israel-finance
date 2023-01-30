@@ -28,6 +28,7 @@ export function Main({}) {
           ...data,
           userId: id,
           userName: data.userName,
+          hiddenPhone: data.hiddenPhone,
           method: method,
         });
         alert("sms was sent succefully and the id was saved for next page"); // success response
