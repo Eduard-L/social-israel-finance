@@ -6,6 +6,7 @@ import { api } from "../api/Api";
 import { EmployeeType } from "./EmployeeType";
 import { Success } from "./Success";
 import { AdditionalInfo } from "./AdditionalInfo";
+import { TypeForm } from "./TypeForm";
 
 export function Main({}) {
   const { data, setData, setStep, step } = useContext(DataContext);
@@ -91,7 +92,7 @@ export function Main({}) {
       ) : (
         " "
       )}
-      {step === 3 ? <>here should be form component</> : " "}
+      {step === 3 ? <TypeForm /> : " "}
       {step === 4 ? <>here should be file uploader</> : " "}
       {step === 5 ? <AdditionalInfo /> : " "}
       {step === 6 ? <Success /> : " "}

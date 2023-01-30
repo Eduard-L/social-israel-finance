@@ -6,12 +6,16 @@ import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 
 export function EmployeeType({}) {
   const { data, setData, setStep, step } = useContext(DataContext);
-  const { userName, userId, direction } = data;
-  const [type, setType] = useState(0);
+  const { userName, userId, direction, employeeInfo } = data;
+  const [type, setType] = useState(employeeInfo?.employeeType ?? 0);
 
   const handleNextStep = () => {
     setData({ ...data, employeeType: type });
-    setStep(step + 1);
+    if (type === 3) {
+      setStep(step + 2);
+    } else {
+      setStep(step + 1);
+    }
   };
 
   return (
@@ -91,7 +95,7 @@ export function EmployeeType({}) {
         <Button
           className=" rounded-full bg-blue-500 flex flex-row self-start "
           variant="contained"
-          sx={{ direction: direction }}
+          style={{ direction: direction }}
           onClick={() => handleNextStep()}
         >
           אפשר להמשיך
