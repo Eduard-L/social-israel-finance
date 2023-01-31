@@ -41,7 +41,7 @@ export function ContractEmployee({ employeeForm, setEmployeeForm }) {
           ),
         }}
         onChange={(e) => {
-          setEmployeeForm({ employeeForm, companyName: e.target.value });
+          setEmployeeForm({ ...employeeForm, companyName: e.target.value });
         }}
       />
       <SharedFields
@@ -74,7 +74,7 @@ export function ContractEmployee({ employeeForm, setEmployeeForm }) {
           ),
         }}
         onChange={(e) => {
-          setEmployeeForm({ employeeForm, jobPercentage: e.target.value });
+          setEmployeeForm({ ...employeeForm, jobPercentage: e.target.value });
         }}
       />
       <TextField
@@ -102,7 +102,7 @@ export function ContractEmployee({ employeeForm, setEmployeeForm }) {
           ),
         }}
         onChange={(e) => {
-          setEmployeeForm({ employeeForm, brutoSalary: e.target.value });
+          setEmployeeForm({ ...employeeForm, brutoSalary: e.target.value });
         }}
       />
     </div>

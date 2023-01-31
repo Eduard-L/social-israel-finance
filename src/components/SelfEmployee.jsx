@@ -45,7 +45,7 @@ export function SelfEmployee({ employeeForm, setEmployeeForm }) {
           ),
         }}
         onChange={(e) => {
-          setEmployeeForm({ employeeForm, monthSalary: e.target.value });
+          setEmployeeForm({ ...employeeForm, monthSalary: e.target.value });
         }}
       />
     </div>

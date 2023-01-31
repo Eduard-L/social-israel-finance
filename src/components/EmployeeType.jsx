@@ -84,7 +84,10 @@ export function EmployeeType({}) {
               color: type === 3 ? "grey" : "#4091df",
               border: !(type === 3) && "2px solid #4091df",
             }}
-            onClick={() => setType(3)}
+            onClick={() => {
+              setType(3);
+              setData({ ...data, employeeForm: null });
+            }}
           >
             לא מועסק/ת
           </Button>

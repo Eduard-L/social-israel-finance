@@ -7,7 +7,7 @@ import { ContractEmployee } from "./ContractEmployee";
 import { SelfEmployee } from "./SelfEmployee";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 export function TypeForm({}) {
-  const { data, setStep, step } = useContext(DataContext);
+  const { data, setData, setStep, step } = useContext(DataContext);
   const { userName, userId, direction, hiddenPhone, employeeType } = data;
   const [isFinishedFisrtForm, setIsFinishedFirstForm] = useState(false);
   const emptyInfo = {
@@ -23,6 +23,7 @@ export function TypeForm({}) {
   );
 
   const handleNextStep = () => {
+    setData({ ...data, employeeForm });
     if (isFinishedFisrtForm) {
       setStep(step + 1);
       return;

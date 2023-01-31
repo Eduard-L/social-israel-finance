@@ -7,6 +7,7 @@ import { EmployeeType } from "./EmployeeType";
 import { Success } from "./Success";
 import { AdditionalInfo } from "./AdditionalInfo";
 import { TypeForm } from "./TypeForm";
+import { FileUploader } from "./FileUploader";
 
 export function Main({}) {
   const { data, setData, setStep, step } = useContext(DataContext);
@@ -93,7 +94,7 @@ export function Main({}) {
         " "
       )}
       {step === 3 ? <TypeForm /> : " "}
-      {step === 4 ? <>here should be file uploader</> : " "}
+      {step === 4 ? <FileUploader /> : " "}
       {step === 5 ? <AdditionalInfo /> : " "}
       {step === 6 ? <Success /> : " "}
     </div>

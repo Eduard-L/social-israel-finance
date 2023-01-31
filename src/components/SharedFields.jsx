@@ -35,7 +35,7 @@ export function SharedFields({ employeeForm, setEmployeeForm }) {
           ),
         }}
         onChange={(e) => {
-          setEmployeeForm({ employeeForm, jobTitle: e.target.value });
+          setEmployeeForm({ ...employeeForm, jobTitle: e.target.value });
         }}
       />
       <TextField
@@ -63,7 +63,7 @@ export function SharedFields({ employeeForm, setEmployeeForm }) {
           ),
         }}
         onChange={(e) => {
-          setEmployeeForm({ employeeForm, startMonth: e.target.value });
+          setEmployeeForm({ ...employeeForm, startMonth: e.target.value });
         }}
       />
     </div>
