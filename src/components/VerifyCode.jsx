@@ -15,7 +15,7 @@ export function VerifyCode({ onSendCode, onSmsSend }) {
 
   return (
     <>
-      <div className="flex flex-col">
+      <div className="flex flex-col" style={{ direction: direction }}>
         <Typography className="text-center" style={{ fontWeight: "bold" }}>
           ,שלום {userName}
         </Typography>
@@ -41,7 +41,6 @@ export function VerifyCode({ onSendCode, onSmsSend }) {
           className="mt-6"
           error={code.length !== 6 && code.length > 0}
           helperText={code.length !== 6 && code.length > 0 && "נא למלא מס אישי"}
-          style={{ direction: direction }}
           placeholder="מספר אישי"
           InputProps={{
             endAdornment: (
