@@ -2,10 +2,12 @@ import { Typography, TextareaAutosize, Button } from "@mui/material";
 import { DataContext } from "../context/DataContext";
 import { useContext } from "react";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
+import { useState } from "react";
 
 export function AdditionalInfo() {
-  const { data, step, setStep } = useContext(DataContext);
+  const { data, step, setStep, setData } = useContext(DataContext);
   const { direction } = data;
+  const [text, setText] = useState(data.additionText ?? "");
 
   return (
     <div className="flex flex-col items-center justify-between w-full h-full">
@@ -13,6 +15,8 @@ export function AdditionalInfo() {
         <Typography className="text-center">:הערות נוספות</Typography>
         <TextareaAutosize
           aria-label="empty textarea"
+          value={text}
+          onChange={(e) => setText(e.target.value)}
           className="w-full mt-3 p-4 "
           style={{
             height: 280,
@@ -28,8 +32,10 @@ export function AdditionalInfo() {
           variant="contained"
           sx={{ direction: direction }}
           onClick={() => {
-            console.log(data);
+            setData({ ...data, additionText: text });
             alert("info is sent");
+            console.log(data);
+            setStep(step + 1);
           }}
         >
           שליחת דיווח

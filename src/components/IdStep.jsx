@@ -14,7 +14,7 @@ import DoneIcon from "@mui/icons-material/Done";
 import ErrorIcon from "@mui/icons-material/Error";
 
 export function IdStep({ onBtnClick, id, setId, method, setMethod }) {
-  const { data, setData } = useContext(DataContext);
+  const { data, setData, isLoading } = useContext(DataContext);
   const { isEnglish, direction } = data;
 
   return (
@@ -111,8 +111,8 @@ export function IdStep({ onBtnClick, id, setId, method, setMethod }) {
         className=" rounded-full bg-blue-500 flex flex-row self-start "
         variant="contained"
         sx={{ direction: direction }}
-        disabled={id.length !== 9}
-        onClick={onBtnClick}
+        disabled={id.length !== 9 || isLoading}
+        onClick={() => onBtnClick()}
       >
         קבלת קוד אימות אישי
         <KeyboardBackspaceIcon />

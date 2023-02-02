@@ -10,41 +10,48 @@ import { TypeForm } from "./TypeForm";
 import { FileUploader } from "./FileUploader";
 
 export function Main({}) {
-  const { data, setData, setStep, step } = useContext(DataContext);
+  const { data, setData, setStep, step, setIsLoading } =
+    useContext(DataContext);
   const { userId } = data;
   const [id, setId] = useState(userId ?? "");
   const [method, setMethod] = useState("WhatsApp");
   console.log(method);
 
-  const handleSendSmsBtnClick = async () => {
+  const handleSendSmsBtnClick = async (toSentAgain) => {
     if (id.length !== 9) {
       alert("id in not valid");
       return;
     }
+    setIsLoading(true);
 
     try {
-      const data = await api.handleVerifyId(id, method);
+      const userData = await api.handleVerifyId(id, method);
 
-      if (data) {
+      if (userData) {
         setData({
           ...data,
           userId: id,
-          userName: data.userName,
+          userName: userData.userName,
           method: method,
-          hiddenPhone: data.hiddenPhone,
+          hiddenPhone: userData.hiddenPhone,
         });
         alert("sms was sent succefully and the id was saved for next page"); // success response
-        setStep(step + 1);
+        if (!toSentAgain) {
+          setStep(step + 1);
+        }
       } else {
         alert("something went wrong, check your id or connection");
       }
     } catch (e) {
       console.log(e);
       alert("something went wrong, check your id or connection");
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const handleVerifySmsCode = async (code) => {
+    setIsLoading(true);
     try {
       const employeeFormDetails = await api.handleVerifyCode(userId, code);
 
@@ -58,6 +65,8 @@ export function Main({}) {
     } catch (e) {
       console.log(e);
       alert("something went wrong");
+    } finally {
+      setIsLoading(false);
     }
   };
 

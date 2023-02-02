@@ -6,8 +6,8 @@ import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 
 export function EmployeeType({}) {
   const { data, setData, setStep, step } = useContext(DataContext);
-  const { userName, userId, direction, employeeInfo } = data;
-  const [type, setType] = useState(employeeInfo?.employeeType ?? 0);
+  const { userName, userId, direction, employeeType } = data;
+  const [type, setType] = useState(employeeType ?? 0);
 
   const handleNextStep = () => {
     setData({ ...data, employeeType: type });
@@ -39,7 +39,7 @@ export function EmployeeType({}) {
               direction: direction,
               width: 155,
               backgroundColor: type === 0 ? "lightgrey" : "white",
-              color: type === 0 ? "grey" : "blue",
+              color: type === 0 ? "grey" : "#4091df",
               border: !(type === 0) && "2px solid #4091df",
             }}
             onClick={() => setType(0)}

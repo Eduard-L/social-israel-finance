@@ -8,29 +8,31 @@ import ErrorIcon from "@mui/icons-material/Error";
 import { InputAdornment } from "@material-ui/core";
 
 export function VerifyCode({ onSendCode, onSmsSend }) {
-  const { data, setStep, step } = useContext(DataContext);
+  const { data, setStep, step, isLoading } = useContext(DataContext);
   const { userName, userId, direction, hiddenPhone } = data;
   const [code, setCode] = useState("");
   const message = `הודעת סמס נשלחה אלייך למס `;
 
+  console.log(direction);
+
   return (
     <>
-      <div className="flex flex-col" style={{ direction: direction }}>
+      <div className="flex flex-col" style={{}}>
         <Typography className="text-center" style={{ fontWeight: "bold" }}>
           ,שלום {userName}
         </Typography>
         <div className="flex flex-col">
-          <Typography className="text-center" style={{ direction: direction }}>
+          <Typography className="text-center" style={{}}>
             {message}
           </Typography>
           <Typography
             className="text-center underline "
-            style={{ direction: direction, color: "blue" }}
+            style={{ color: "blue" }}
           >
             {hiddenPhone}
           </Typography>
         </div>
-        <Typography className="text-center" style={{ direction: direction }}>
+        <Typography className="text-center" style={{}}>
           יש להכניס את מס' האימות האישי שקיבלת
         </Typography>
         <TextField
@@ -38,6 +40,7 @@ export function VerifyCode({ onSendCode, onSmsSend }) {
           variant="standard"
           type="text"
           value={code}
+          style={{ direction: direction }}
           className="mt-6"
           error={code.length !== 6 && code.length > 0}
           helperText={code.length !== 6 && code.length > 0 && "נא למלא מס אישי"}
@@ -69,7 +72,7 @@ export function VerifyCode({ onSendCode, onSmsSend }) {
             cursor: "pointer",
           }}
           onClick={() => {
-            onSmsSend(userId);
+            onSmsSend(true);
           }}
         >
           לא קיבלתי שלחו שוב
@@ -80,7 +83,7 @@ export function VerifyCode({ onSendCode, onSmsSend }) {
           className=" rounded-full bg-blue-500 flex flex-row self-start "
           variant="contained"
           sx={{ direction: direction }}
-          disabled={code.length !== 6}
+          disabled={code.length !== 6 || isLoading}
           onClick={() => onSendCode(code)}
         >
           כניסה לטופס
