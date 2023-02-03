@@ -4,11 +4,36 @@ import { useContext } from "react";
 import { DataContext } from "../context/DataContext";
 import ErrorIcon from "@mui/icons-material/Error";
 import DoneIcon from "@mui/icons-material/Done";
+import { useState } from "react";
 
-export function SharedFields({ employeeForm, setEmployeeForm }) {
-  const { data, setStep, step } = useContext(DataContext);
-  const { userName, userId, direction, hiddenPhone, employeeType } = data;
-  const { jobTitle, startMonth, monthSalary, companyName } = employeeForm;
+export function SharedFields({
+  employeeForm,
+  setEmployeeForm,
+  isSelfEmployee,
+}) {
+  const { data } = useContext(DataContext);
+  const {
+    jobTitleSelfEmployee,
+    jobTitleContractEmployee,
+    startMonthSelfEmployee,
+    startMonthContractEmployee,
+    monthSalary,
+    companyName,
+  } = employeeForm;
+
+  const [jobTitle, setJobTitle] = useState(() =>
+    isSelfEmployee ? jobTitleSelfEmployee : jobTitleContractEmployee
+  );
+  const [startMonth, setStartMonth] = useState(() =>
+    isSelfEmployee ? startMonthSelfEmployee : startMonthContractEmployee
+  );
+
+  const jobTitleName = isSelfEmployee
+    ? "jobTitleSelfEmployee"
+    : "jobTitleContractEmployee";
+  const startMonthName = isSelfEmployee
+    ? "startMonthSelfEmployee"
+    : "startMonthContractEmployee";
 
   return (
     <div className="w-full">
@@ -16,18 +41,20 @@ export function SharedFields({ employeeForm, setEmployeeForm }) {
         id="standard-basic"
         variant="standard"
         type="text"
-        className="mt-6 w-full"
+        className="mt-4 w-full"
         value={jobTitle}
-        error={jobTitle?.length < 3 && jobTitle.length > 0}
+        error={jobTitle?.length < 3 && jobTitle.length !== 0}
         helperText={
-          jobTitle?.length !== 1 && jobTitle?.length > 1 && "נא מלא שם תפקיד"
+          jobTitle?.length !== 0 && jobTitle?.length < 3 && "נא מלא שם תפקיד"
         }
         placeholder="שם תפקיד"
         InputProps={{
           endAdornment: (
             <InputAdornment position="end">
-              {jobTitle?.length > 3 ? (
+              {jobTitle?.length > 2 ? (
                 <DoneIcon style={{ color: "green" }} />
+              ) : jobTitle?.length === 0 ? (
+                ""
               ) : (
                 <ErrorIcon style={{ color: "red" }} />
               )}
@@ -35,27 +62,30 @@ export function SharedFields({ employeeForm, setEmployeeForm }) {
           ),
         }}
         onChange={(e) => {
-          setEmployeeForm({ ...employeeForm, jobTitle: e.target.value });
+          setJobTitle(e.target.value);
+          setEmployeeForm({ ...employeeForm, [jobTitleName]: e.target.value });
         }}
       />
       <TextField
         id="standard-basic"
         variant="standard"
         type="text"
-        className="mt-6 w-full"
+        className="mt-4 w-full"
         value={startMonth}
-        error={startMonth?.length < 3 && startMonth.length > 0}
+        error={startMonth?.length < 2 && startMonth.length !== 0}
         helperText={
-          startMonth?.length !== 1 &&
-          startMonth?.length > 1 &&
+          startMonth?.length !== 0 &&
+          startMonth?.length < 2 &&
           "חודש תחילת עבודה"
         }
         placeholder="חודש תחילת עבודה"
         InputProps={{
           endAdornment: (
             <InputAdornment position="end">
-              {startMonth?.length > 3 ? (
+              {startMonth?.length > 1 ? (
                 <DoneIcon style={{ color: "green" }} />
+              ) : startMonth?.length === 0 ? (
+                ""
               ) : (
                 <ErrorIcon style={{ color: "red" }} />
               )}
@@ -63,7 +93,11 @@ export function SharedFields({ employeeForm, setEmployeeForm }) {
           ),
         }}
         onChange={(e) => {
-          setEmployeeForm({ ...employeeForm, startMonth: e.target.value });
+          setStartMonth(e.target.value);
+          setEmployeeForm({
+            ...employeeForm,
+            [startMonthName]: e.target.value,
+          });
         }}
       />
     </div>

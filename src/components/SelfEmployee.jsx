@@ -19,24 +19,19 @@ export function SelfEmployee({ employeeForm, setEmployeeForm }) {
       <SharedFields
         employeeForm={employeeForm}
         setEmployeeForm={setEmployeeForm}
+        isSelfEmployee={true}
       />
       <TextField
         id="standard-basic"
         variant="standard"
         type="text"
-        className="mt-6"
+        className="mt-4"
         value={monthSalary}
-        error={monthSalary?.length < 3 && monthSalary.length > 0}
-        helperText={
-          monthSalary?.length !== 1 &&
-          monthSalary?.length > 1 &&
-          "נא מלא הכנסות מעבודה חודש קודם"
-        }
         placeholder="הכנסות עבודה מחודש קודם"
         InputProps={{
           endAdornment: (
             <InputAdornment position="end">
-              {monthSalary?.length > 3 ? (
+              {monthSalary?.length > 0 ? (
                 <DoneIcon style={{ color: "green" }} />
               ) : (
                 <ErrorIcon style={{ color: "red" }} />
@@ -45,7 +40,9 @@ export function SelfEmployee({ employeeForm, setEmployeeForm }) {
           ),
         }}
         onChange={(e) => {
-          setEmployeeForm({ ...employeeForm, monthSalary: e.target.value });
+          if (!isNaN(e.target.value)) {
+            setEmployeeForm({ ...employeeForm, monthSalary: e.target.value });
+          }
         }}
       />
     </div>

@@ -9,10 +9,13 @@ import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 export function TypeForm({}) {
   const { data, setData, setStep, step } = useContext(DataContext);
   const { userName, userId, direction, hiddenPhone, employeeType } = data;
+  const [isBtnDisabled, setIsBtnDisabled] = useState(true);
   const [isFinishedFisrtForm, setIsFinishedFirstForm] = useState(false);
   const emptyInfo = {
-    jobTitle: "",
-    startMonth: "",
+    jobTitleSelfEmployee: "",
+    jobTitleContractEmployee: "",
+    startMonthSelfEmployee: "",
+    startMonthContractEmployee: "",
     monthSalary: "",
     companyName: "",
     brutoSalary: "",
@@ -60,7 +63,7 @@ export function TypeForm({}) {
             className="text-start ml-1"
             style={{ fontWeight: "bold", direction: direction }}
           >
-            ישראל ישראל |
+            {userName} |
           </Typography>
           <Typography
             className="text-start"

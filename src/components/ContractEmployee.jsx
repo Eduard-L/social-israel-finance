@@ -19,21 +19,24 @@ export function ContractEmployee({ employeeForm, setEmployeeForm }) {
       <TextField
         id="standard-basic"
         variant="standard"
+        required
         type="text"
-        className="mt-6"
+        className="mt-4"
         value={companyName}
-        error={companyName?.length < 3 && companyName.length > 0}
+        error={companyName?.length < 3 && companyName.length !== 0}
         helperText={
-          companyName?.length !== 1 &&
-          companyName?.length > 1 &&
+          companyName?.length !== 0 &&
+          companyName?.length < 3 &&
           "הנה הזן שם חברה"
         }
         placeholder="שם חברה"
         InputProps={{
           endAdornment: (
             <InputAdornment position="end">
-              {companyName?.length > 3 ? (
+              {companyName?.length > 2 ? (
                 <DoneIcon style={{ color: "green" }} />
+              ) : companyName?.length === 0 ? (
+                " "
               ) : (
                 <ErrorIcon style={{ color: "red" }} />
               )}
@@ -53,40 +56,40 @@ export function ContractEmployee({ employeeForm, setEmployeeForm }) {
         id="standard-basic"
         variant="standard"
         type="text"
-        className="mt-6"
+        className="mt-4"
         value={jobPercentage}
-        error={jobPercentage?.length < 3 && jobPercentage.length > 0}
-        helperText={
-          jobPercentage?.length !== 1 &&
-          jobPercentage?.length > 1 &&
-          "הנה הזן אחוז משרה"
-        }
         placeholder="אחוז משרה"
         InputProps={{
           endAdornment: (
             <InputAdornment position="end">
-              {jobPercentage?.length > 3 ? (
+              {jobPercentage?.length > 0 ? (
                 <DoneIcon style={{ color: "green" }} />
               ) : (
-                <ErrorIcon style={{ color: "red" }} />
+                ""
               )}
             </InputAdornment>
           ),
         }}
         onChange={(e) => {
-          setEmployeeForm({ ...employeeForm, jobPercentage: e.target.value });
+          if (
+            !isNaN(e.target.value) &&
+            e.target.value >= 0 &&
+            e.target.value <= 100
+          ) {
+            setEmployeeForm({ ...employeeForm, jobPercentage: e.target.value });
+          }
         }}
       />
       <TextField
         id="standard-basic"
         variant="standard"
         type="text"
-        className="mt-6"
+        className="mt-4"
         value={brutoSalary}
-        error={brutoSalary?.length < 3 && brutoSalary.length > 0}
+        error={brutoSalary?.length <= 3 && brutoSalary.length > 0}
         helperText={
-          brutoSalary?.length !== 1 &&
-          brutoSalary?.length > 1 &&
+          brutoSalary?.length !== 0 &&
+          brutoSalary?.length <= 3 &&
           "הזן שכר ברוטו"
         }
         placeholder="שכר ברוטו"
@@ -95,6 +98,8 @@ export function ContractEmployee({ employeeForm, setEmployeeForm }) {
             <InputAdornment position="end">
               {brutoSalary?.length > 3 ? (
                 <DoneIcon style={{ color: "green" }} />
+              ) : brutoSalary?.length === 0 ? (
+                " "
               ) : (
                 <ErrorIcon style={{ color: "red" }} />
               )}
@@ -102,7 +107,9 @@ export function ContractEmployee({ employeeForm, setEmployeeForm }) {
           ),
         }}
         onChange={(e) => {
-          setEmployeeForm({ ...employeeForm, brutoSalary: e.target.value });
+          if (!isNaN(e.target.value)) {
+            setEmployeeForm({ ...employeeForm, brutoSalary: e.target.value });
+          }
         }}
       />
     </div>
