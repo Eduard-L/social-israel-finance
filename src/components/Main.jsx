@@ -15,7 +15,6 @@ export function Main({}) {
   const { userId } = data;
   const [id, setId] = useState(userId ?? "");
   const [method, setMethod] = useState("WhatsApp");
-  console.log(method);
 
   const handleSendSmsBtnClick = async (toSentAgain) => {
     if (id.length !== 9) {

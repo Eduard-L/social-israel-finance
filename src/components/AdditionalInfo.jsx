@@ -9,6 +9,12 @@ export function AdditionalInfo() {
   const { direction } = data;
   const [text, setText] = useState(data.additionText ?? "");
 
+  const handleSendAllInfo = (finalInfo) => {
+    console.log(finalInfo);
+
+    //final request to the server
+  };
+
   return (
     <div className="flex flex-col items-center justify-between w-full h-full">
       <div className="w-full ">
@@ -32,9 +38,12 @@ export function AdditionalInfo() {
           variant="contained"
           sx={{ direction: direction }}
           onClick={() => {
-            setData({ ...data, additionText: text });
+            setData(() => {
+              return { ...data, additionText: text };
+            });
             alert("info is sent");
             console.log(data);
+            handleSendAllInfo({ ...data, additionText: text });
             setStep(step + 1);
           }}
         >

@@ -13,8 +13,6 @@ export function VerifyCode({ onSendCode, onSmsSend }) {
   const [code, setCode] = useState("");
   const message = `הודעת סמס נשלחה אלייך למס `;
 
-  console.log(direction);
-
   return (
     <>
       <div className="flex flex-col" style={{}}>

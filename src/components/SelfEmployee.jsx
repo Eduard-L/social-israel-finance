@@ -27,12 +27,15 @@ export function SelfEmployee({ employeeForm, setEmployeeForm }) {
         type="text"
         className="mt-4"
         value={monthSalary}
+        required
         placeholder="הכנסות עבודה מחודש קודם"
         InputProps={{
           endAdornment: (
             <InputAdornment position="end">
               {monthSalary?.length > 0 ? (
                 <DoneIcon style={{ color: "green" }} />
+              ) : monthSalary?.length === 0 ? (
+                " "
               ) : (
                 <ErrorIcon style={{ color: "red" }} />
               )}

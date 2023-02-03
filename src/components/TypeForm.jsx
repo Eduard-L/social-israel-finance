@@ -6,6 +6,7 @@ import { DataContext } from "../context/DataContext";
 import { ContractEmployee } from "./ContractEmployee";
 import { SelfEmployee } from "./SelfEmployee";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
+import { useRef } from "react";
 export function TypeForm({}) {
   const { data, setData, setStep, step } = useContext(DataContext);
   const { userName, userId, direction, hiddenPhone, employeeType } = data;
@@ -52,8 +53,25 @@ export function TypeForm({}) {
       : employeeType === 2
       ? "שכיר/ה + עצמאי/ת"
       : " לא מועסק";
+
+  const form = useRef();
+
+  const handleCheckFormValidity = () => {
+    console.log(form.current.checkValidity());
+    if (form.current.checkValidity()) {
+      setIsBtnDisabled(false);
+    } else {
+      setIsBtnDisabled(true);
+    }
+  };
+
+  useEffect(() => {
+    if (!form.current) return;
+    handleCheckFormValidity();
+  }, [employeeForm, isFinishedFisrtForm]);
+
   return (
-    <div className="flex flex-col justify-between w-full h-full">
+    <form ref={form} className="flex flex-col justify-between w-full h-full">
       <div>
         <div
           className="flex flex-row"
@@ -116,6 +134,7 @@ export function TypeForm({}) {
           variant="contained"
           style={{ direction: direction }}
           onClick={() => handleNextStep()}
+          disabled={isBtnDisabled}
         >
           אפשר להמשיך
           <KeyboardBackspaceIcon />
@@ -132,6 +151,6 @@ export function TypeForm({}) {
           <KeyboardBackspaceIcon />
         </Button>
       </div>
-    </div>
+    </form>
   );
 }

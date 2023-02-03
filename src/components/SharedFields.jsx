@@ -41,9 +41,11 @@ export function SharedFields({
         id="standard-basic"
         variant="standard"
         type="text"
+        required
         className="mt-4 w-full"
         value={jobTitle}
         error={jobTitle?.length < 3 && jobTitle.length !== 0}
+        inputProps={{ minLength: 3 }}
         helperText={
           jobTitle?.length !== 0 && jobTitle?.length < 3 && "נא מלא שם תפקיד"
         }
@@ -71,7 +73,9 @@ export function SharedFields({
         variant="standard"
         type="text"
         className="mt-4 w-full"
+        inputProps={{ minLength: 2 }}
         value={startMonth}
+        required
         error={startMonth?.length < 2 && startMonth.length !== 0}
         helperText={
           startMonth?.length !== 0 &&

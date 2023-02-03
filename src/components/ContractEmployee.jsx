@@ -20,6 +20,7 @@ export function ContractEmployee({ employeeForm, setEmployeeForm }) {
         id="standard-basic"
         variant="standard"
         required
+        inputProps={{ minLength: 3 }}
         type="text"
         className="mt-4"
         value={companyName}
@@ -57,6 +58,7 @@ export function ContractEmployee({ employeeForm, setEmployeeForm }) {
         variant="standard"
         type="text"
         className="mt-4"
+        required
         value={jobPercentage}
         placeholder="אחוז משרה"
         InputProps={{
@@ -85,7 +87,9 @@ export function ContractEmployee({ employeeForm, setEmployeeForm }) {
         variant="standard"
         type="text"
         className="mt-4"
+        required
         value={brutoSalary}
+        inputProps={{ minLength: 4 }}
         error={brutoSalary?.length <= 3 && brutoSalary.length > 0}
         helperText={
           brutoSalary?.length !== 0 &&

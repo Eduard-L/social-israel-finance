@@ -38,7 +38,6 @@ export function FileUploader({}) {
     files.forEach((f) => {
       counter = counter + f.file.size;
     });
-    console.log(counter);
     if (counter > 5000000) {
       // prevent upload files higher than 5MB
       alert("upload limit 5MB");
