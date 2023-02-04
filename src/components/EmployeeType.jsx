@@ -2,16 +2,18 @@ import { Typography, Button } from "@mui/material";
 import { DataContext } from "../context/DataContext";
 import { useContext } from "react";
 import { useState } from "react";
+import { EMPLOYMENT_STATUS } from "../Interface/EmploymentStatus"
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 
 export function EmployeeType({}) {
   const { data, setData, setStep, step } = useContext(DataContext);
-  const { userName, userId, direction, employeeType } = data;
-  const [type, setType] = useState(employeeType ?? 0);
+  const { userName, userId, direction, employeeInfo } = data;
+  const [type, setType] = useState(employeeInfo.employmentStatus ?? 'שכיר');
 
   const handleNextStep = () => {
-    setData({ ...data, employeeType: type });
-    if (type === 3) {
+    employeeInfo.employmentStatus = type
+    setData({ ...data });
+    if (type === EMPLOYMENT_STATUS.Not_Employed) {
       setStep(step + 2);
     } else {
       setStep(step + 1);
@@ -38,11 +40,11 @@ export function EmployeeType({}) {
             style={{
               direction: direction,
               width: 155,
-              backgroundColor: type === 0 ? "lightgrey" : "white",
-              color: type === 0 ? "grey" : "#4091df",
-              border: !(type === 0) && "2px solid #4091df",
+              backgroundColor: type === EMPLOYMENT_STATUS.Independent ? "lightgrey" : "white",
+              color: type === EMPLOYMENT_STATUS.Independent ? "grey" : "#4091df",
+              border: !(type === EMPLOYMENT_STATUS.Independent) && "2px solid #4091df",
             }}
-            onClick={() => setType(0)}
+            onClick={() => setType(EMPLOYMENT_STATUS.Independent)}
           >
             עצמאי
           </Button>
@@ -52,11 +54,11 @@ export function EmployeeType({}) {
             style={{
               direction: direction,
               width: 155,
-              backgroundColor: type === 1 ? "lightgrey" : "white",
-              color: type === 1 ? "grey" : "#4091df",
-              border: !(type === 1) && "2px solid #4091df",
+              backgroundColor: type === EMPLOYMENT_STATUS.Employee ? "lightgrey" : "white",
+              color: type === EMPLOYMENT_STATUS.Employee ? "grey" : "#4091df",
+              border: !(type === EMPLOYMENT_STATUS.Employee) && "2px solid #4091df",
             }}
-            onClick={() => setType(1)}
+            onClick={() => setType(EMPLOYMENT_STATUS.Employee)}
           >
             שכיר
           </Button>
@@ -66,11 +68,11 @@ export function EmployeeType({}) {
             style={{
               direction: direction,
               width: 155,
-              backgroundColor: type === 2 ? "lightgrey" : "white",
-              color: type === 2 ? "grey" : "#4091df",
-              border: !(type === 2) && "2px solid #4091df",
+              backgroundColor: type === EMPLOYMENT_STATUS.Combined ? "lightgrey" : "white",
+              color: type === EMPLOYMENT_STATUS.Combined ? "grey" : "#4091df",
+              border: !(type === EMPLOYMENT_STATUS.Combined) && "2px solid #4091df",
             }}
-            onClick={() => setType(2)}
+            onClick={() => setType(EMPLOYMENT_STATUS.Combined)}
           >
             שכיר/ה+עצמאי/ית
           </Button>
@@ -80,12 +82,12 @@ export function EmployeeType({}) {
             style={{
               direction: direction,
               width: 155,
-              backgroundColor: type === 3 ? "lightgrey" : "white",
-              color: type === 3 ? "grey" : "#4091df",
-              border: !(type === 3) && "2px solid #4091df",
+              backgroundColor: type === EMPLOYMENT_STATUS.Not_Employed ? "lightgrey" : "white",
+              color: type === EMPLOYMENT_STATUS.Not_Employed ? "grey" : "#4091df",
+              border: !(type === EMPLOYMENT_STATUS.Not_Employed) && "2px solid #4091df",
             }}
             onClick={() => {
-              setType(3);
+              setType(EMPLOYMENT_STATUS.Not_Employed);
               setData({ ...data, employeeForm: null });
             }}
           >

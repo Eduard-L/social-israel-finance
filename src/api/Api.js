@@ -40,6 +40,21 @@ export class Api {
 
         return this._checkResponse(employeInfo)
     }
+
+    async handleSubmit(employeeForm) {
+        const requestOptions = {
+            method: "post",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                ...employeeForm
+            }),
+        };
+        const employeInfo = await fetch(`${this._baseUrl}/employee/submit`, requestOptions);
+
+        return this._checkResponse(employeInfo)
+    }
 }
 
 

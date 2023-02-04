@@ -8,7 +8,7 @@ import { SharedFields } from "./SharedFields";
 
 export function ContractEmployee({ employeeForm, setEmployeeForm }) {
   const { data, setStep, step } = useContext(DataContext);
-  const { userName, userId, direction, hiddenPhone, employeeType } = data;
+  const { userName, userId, direction, hiddenPhone } = data;
   const { companyName, jobPercentage, brutoSalary } = employeeForm;
 
   return (
