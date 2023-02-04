@@ -3,15 +3,17 @@ import { DataContext } from "../context/DataContext";
 import { useContext } from "react";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import { useState } from "react";
+import { api } from "../api/Api";
 
 export function AdditionalInfo() {
   const { data, step, setStep, setData } = useContext(DataContext);
   const { direction } = data;
   const [text, setText] = useState(data.additionText ?? "");
 
-  const handleSendAllInfo = (finalInfo) => {
+  const handleSendAllInfo = async (finalInfo) => {
     console.log(finalInfo);
 
+    const response = await api.handleSubmit(finalInfo)
     //final request to the server
   };
 
@@ -41,7 +43,7 @@ export function AdditionalInfo() {
             setData(() => {
               return { ...data, additionText: text };
             });
-            alert("info is sent");
+            // alert("info is sent");
             console.log(data);
             handleSendAllInfo({ ...data, additionText: text });
             setStep(step + 1);

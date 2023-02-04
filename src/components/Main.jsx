@@ -34,7 +34,7 @@ export function Main({}) {
           method: method,
           hiddenPhone: userData.hiddenPhone,
         });
-        alert("sms was sent succefully and the id was saved for next page"); // success response
+        // alert("sms was sent succefully and the id was saved for next page"); // success response
         if (!toSentAgain) {
           setStep(step + 1);
         }
@@ -56,7 +56,7 @@ export function Main({}) {
 
       if (employeeFormDetails) {
         setData({ ...data, employeeInfo: employeeFormDetails });
-        alert("code was veryfied");
+        // alert("code was veryfied");
         setStep(step + 1);
       } else {
         alert("something went wrong , try again");

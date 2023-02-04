@@ -11,7 +11,7 @@ export function VerifyCode({ onSendCode, onSmsSend }) {
   const { data, setStep, step, isLoading } = useContext(DataContext);
   const { userName, userId, direction, hiddenPhone } = data;
   const [code, setCode] = useState("");
-  const message = `הודעת סמס נשלחה אלייך למס `;
+  const message = `הודעת טקסט נשלחה אלייך למס `;
 
   return (
     <>

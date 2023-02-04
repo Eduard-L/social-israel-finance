@@ -5,20 +5,21 @@ import UploadIcon from "@mui/icons-material/Upload";
 import { Button, Typography } from "@mui/material";
 import { File } from "./File";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
+import { EMPLOYMENT_STATUS } from "../Interface/EmploymentStatus"
 
 export function FileUploader({}) {
   const { data, setStep, step, setData } = useContext(DataContext);
-  const { direction, employeeType } = data;
+  const { direction, employeeInfo } = data;
   const [files, setFiles] = useState(data?.files ?? []);
 
   const handleTitle = () => {
-    if (employeeType === 3) {
+    if (employeeInfo.employmentStatus === EMPLOYMENT_STATUS.Not_Employed) {
       return "יש לעלות תלושי שכר מביטוח לאומי";
-    } else if (employeeType === 2) {
+    } else if (employeeInfo.employmentStatus === EMPLOYMENT_STATUS.Combined) {
       return "X-X יש לעלות תלושי שכר עבור חודשים ";
-    } else if (employeeType === 1) {
+    } else if (employeeInfo.employmentStatus === EMPLOYMENT_STATUS.Employee) {
       return "X-X יש לעלות תלושי שכר עבור חודשים ";
-    } else if (employeeType === 0) {
+    } else if (employeeInfo.employmentStatus === EMPLOYMENT_STATUS.Independent) {
       return "X-X יש להעלות חשבונית עבור חודשים ";
     }
   };
@@ -57,7 +58,7 @@ export function FileUploader({}) {
       <div className="flex flex-col items-center w-full">
         <Typography className="text-center ">{handleTitle()}</Typography>
 
-        {employeeType === 2 ? (
+        {employeeInfo.employmentStatus === EMPLOYMENT_STATUS.Combined ? (
           <Typography className="text-center ">
             X-X יש להעלות חשבונית עבור חודשים
           </Typography>
