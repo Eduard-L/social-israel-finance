@@ -71,18 +71,12 @@ export function SharedFields({
       <TextField
         id="standard-basic"
         variant="standard"
-        type="text"
+        type="date"
         className="mt-4 w-full"
-        inputProps={{ minLength: 2 }}
         value={startMonth}
         required
         error={startMonth?.length < 2 && startMonth.length !== 0}
-        helperText={
-          startMonth?.length !== 0 &&
-          startMonth?.length < 2 &&
-          "חודש תחילת עבודה"
-        }
-        placeholder="חודש תחילת עבודה"
+        placeholder="תאריך תחילת עבודה"
         InputProps={{
           endAdornment: (
             <InputAdornment position="end">

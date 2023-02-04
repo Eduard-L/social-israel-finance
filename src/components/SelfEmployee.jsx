@@ -32,6 +32,7 @@ export function SelfEmployee({ employeeForm, setEmployeeForm }) {
         InputProps={{
           endAdornment: (
             <InputAdornment position="end">
+              ₪
               {monthSalary?.length > 0 ? (
                 <DoneIcon style={{ color: "green" }} />
               ) : monthSalary?.length === 0 ? (

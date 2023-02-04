@@ -5,6 +5,7 @@ import { useContext } from "react";
 import { DataContext } from "../context/DataContext";
 import ErrorIcon from "@mui/icons-material/Error";
 import { SharedFields } from "./SharedFields";
+import PercentSharpIcon from "@mui/icons-material/PercentSharp";
 
 export function ContractEmployee({ employeeForm, setEmployeeForm }) {
   const { data, setStep, step } = useContext(DataContext);
@@ -64,6 +65,7 @@ export function ContractEmployee({ employeeForm, setEmployeeForm }) {
         InputProps={{
           endAdornment: (
             <InputAdornment position="end">
+              <PercentSharpIcon />
               {jobPercentage?.length > 0 ? (
                 <DoneIcon style={{ color: "green" }} />
               ) : (
@@ -100,6 +102,7 @@ export function ContractEmployee({ employeeForm, setEmployeeForm }) {
         InputProps={{
           endAdornment: (
             <InputAdornment position="end">
+              ₪
               {brutoSalary?.length > 3 ? (
                 <DoneIcon style={{ color: "green" }} />
               ) : brutoSalary?.length === 0 ? (
