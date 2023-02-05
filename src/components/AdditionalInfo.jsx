@@ -13,7 +13,7 @@ export function AdditionalInfo() {
   const handleSendAllInfo = async (finalInfo) => {
     console.log(finalInfo);
 
-    const response = await api.handleSubmit(finalInfo)
+    const response = await api.handleSubmit(finalInfo, finalInfo.files, finalInfo.userId)
     //final request to the server
   };
 

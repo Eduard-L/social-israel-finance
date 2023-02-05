@@ -14,7 +14,9 @@ export class Api {
     async handleVerifyId(id, method) {
         const requestOptions = {
             method: "post",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+                "Content-Type": "application/json"
+            },
             body: JSON.stringify({
                 userId: id,
                 method: method
@@ -41,7 +43,7 @@ export class Api {
         return this._checkResponse(employeInfo)
     }
 
-    async handleSubmit(employeeForm) {
+    async handleSubmit(employeeForm, file, userId) {
         const requestOptions = {
             method: "post",
             headers: {
