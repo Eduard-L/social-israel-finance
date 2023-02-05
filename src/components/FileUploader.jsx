@@ -33,7 +33,7 @@ export function FileUploader({}) {
     setStep(step + 1);
   };
 
-  const handleChange = (e) => {
+  const handleChange = async (e) => {
     if (!e.target.files[0]) return;
     let counter = e.target.files[0].size;
     files.forEach((f) => {
@@ -44,7 +44,7 @@ export function FileUploader({}) {
       alert("upload limit 5MB");
       return;
     }
-    const f = { file: e.target.files[0], id: crypto.randomUUID() };
+    const f = { file: await convertBase64(e.target.files[0]), id: e.target.files[0].name };
     setFiles([...files, f]);
   };
 
@@ -52,6 +52,19 @@ export function FileUploader({}) {
     const newFiles = files.filter((f) => f.id !== id);
     setFiles(newFiles);
   };
+
+  const convertBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file)
+      fileReader.onload = () => {
+        resolve(fileReader.result);
+      }
+      fileReader.onerror = (error) => {
+        reject(error);
+      }
+    })
+  }
 
   return (
     <div className="flex flex-col items-center justify-between w-full h-full">
@@ -70,7 +83,7 @@ export function FileUploader({}) {
           {files.map((f) => (
             <File
               key={f.id}
-              fileName={f.file.name}
+              fileName={f.id}
               onDelete={handleDeleteFile}
               id={f.id}
             />
