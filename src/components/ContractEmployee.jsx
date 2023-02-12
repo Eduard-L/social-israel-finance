@@ -1,16 +1,25 @@
 import { Typography, Button, TextField } from "@mui/material";
 import { InputAdornment } from "@material-ui/core";
 import DoneIcon from "@mui/icons-material/Done";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { DataContext } from "../context/DataContext";
 import ErrorIcon from "@mui/icons-material/Error";
 import { SharedFields } from "./SharedFields";
 import PercentSharpIcon from "@mui/icons-material/PercentSharp";
 
 export function ContractEmployee({ employeeForm, setEmployeeForm }) {
-  const { data, setStep, step } = useContext(DataContext);
-  const { userName, userId, direction, hiddenPhone } = data;
-  const { companyName, jobPercentage, brutoSalary } = employeeForm;
+  const { data } = useContext(DataContext);
+  const { direction, employeeInfo } = data;
+
+  const [companyName, setCompanyName] = useState(
+    employeeInfo.companyName ?? ""
+  );
+  const [jobPercentage, setJobPercentage] = useState(
+    employeeInfo.jobPercentage ?? ""
+  );
+  const [brutoSalary, setBrutoSalary] = useState(
+    employeeInfo.brutoSalary ?? ""
+  );
 
   return (
     <div
@@ -47,6 +56,7 @@ export function ContractEmployee({ employeeForm, setEmployeeForm }) {
         }}
         onChange={(e) => {
           setEmployeeForm({ ...employeeForm, companyName: e.target.value });
+          setCompanyName(e.target.value);
         }}
       />
       <SharedFields
@@ -81,6 +91,7 @@ export function ContractEmployee({ employeeForm, setEmployeeForm }) {
             e.target.value <= 100
           ) {
             setEmployeeForm({ ...employeeForm, jobPercentage: e.target.value });
+            setJobPercentage(e.target.value);
           }
         }}
       />
@@ -116,6 +127,7 @@ export function ContractEmployee({ employeeForm, setEmployeeForm }) {
         onChange={(e) => {
           if (!isNaN(e.target.value)) {
             setEmployeeForm({ ...employeeForm, brutoSalary: e.target.value });
+            setBrutoSalary(e.target.value);
           }
         }}
       />

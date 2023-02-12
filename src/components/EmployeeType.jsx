@@ -2,17 +2,19 @@ import { Typography, Button } from "@mui/material";
 import { DataContext } from "../context/DataContext";
 import { useContext } from "react";
 import { useState } from "react";
-import { EMPLOYMENT_STATUS } from "../Interface/EmploymentStatus"
+import { EMPLOYMENT_STATUS } from "../Interface/EmploymentStatus";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 
 export function EmployeeType({}) {
   const { data, setData, setStep, step } = useContext(DataContext);
   const { userName, userId, direction, employeeInfo } = data;
-  const [type, setType] = useState(employeeInfo.employmentStatus ?? 'שכיר');
+  const [type, setType] = useState(employeeInfo?.employmentStatus ?? "שכיר");
 
   const handleNextStep = () => {
-    employeeInfo.employmentStatus = type
-    setData({ ...data });
+    setData({
+      ...data,
+      employeeInfo: { ...employeeInfo, employmentStatus: type },
+    });
     if (type === EMPLOYMENT_STATUS.Not_Employed) {
       setStep(step + 2);
     } else {
@@ -40,9 +42,13 @@ export function EmployeeType({}) {
             style={{
               direction: direction,
               width: 155,
-              backgroundColor: type === EMPLOYMENT_STATUS.Independent ? "lightgrey" : "white",
-              color: type === EMPLOYMENT_STATUS.Independent ? "grey" : "#4091df",
-              border: !(type === EMPLOYMENT_STATUS.Independent) && "2px solid #4091df",
+              backgroundColor:
+                type === EMPLOYMENT_STATUS.Independent ? "lightgrey" : "white",
+              color:
+                type === EMPLOYMENT_STATUS.Independent ? "grey" : "#4091df",
+              border:
+                !(type === EMPLOYMENT_STATUS.Independent) &&
+                "2px solid #4091df",
             }}
             onClick={() => setType(EMPLOYMENT_STATUS.Independent)}
           >
@@ -54,9 +60,11 @@ export function EmployeeType({}) {
             style={{
               direction: direction,
               width: 155,
-              backgroundColor: type === EMPLOYMENT_STATUS.Employee ? "lightgrey" : "white",
+              backgroundColor:
+                type === EMPLOYMENT_STATUS.Employee ? "lightgrey" : "white",
               color: type === EMPLOYMENT_STATUS.Employee ? "grey" : "#4091df",
-              border: !(type === EMPLOYMENT_STATUS.Employee) && "2px solid #4091df",
+              border:
+                !(type === EMPLOYMENT_STATUS.Employee) && "2px solid #4091df",
             }}
             onClick={() => setType(EMPLOYMENT_STATUS.Employee)}
           >
@@ -68,9 +76,11 @@ export function EmployeeType({}) {
             style={{
               direction: direction,
               width: 155,
-              backgroundColor: type === EMPLOYMENT_STATUS.Combined ? "lightgrey" : "white",
+              backgroundColor:
+                type === EMPLOYMENT_STATUS.Combined ? "lightgrey" : "white",
               color: type === EMPLOYMENT_STATUS.Combined ? "grey" : "#4091df",
-              border: !(type === EMPLOYMENT_STATUS.Combined) && "2px solid #4091df",
+              border:
+                !(type === EMPLOYMENT_STATUS.Combined) && "2px solid #4091df",
             }}
             onClick={() => setType(EMPLOYMENT_STATUS.Combined)}
           >
@@ -82,9 +92,13 @@ export function EmployeeType({}) {
             style={{
               direction: direction,
               width: 155,
-              backgroundColor: type === EMPLOYMENT_STATUS.Not_Employed ? "lightgrey" : "white",
-              color: type === EMPLOYMENT_STATUS.Not_Employed ? "grey" : "#4091df",
-              border: !(type === EMPLOYMENT_STATUS.Not_Employed) && "2px solid #4091df",
+              backgroundColor:
+                type === EMPLOYMENT_STATUS.Not_Employed ? "lightgrey" : "white",
+              color:
+                type === EMPLOYMENT_STATUS.Not_Employed ? "grey" : "#4091df",
+              border:
+                !(type === EMPLOYMENT_STATUS.Not_Employed) &&
+                "2px solid #4091df",
             }}
             onClick={() => {
               setType(EMPLOYMENT_STATUS.Not_Employed);

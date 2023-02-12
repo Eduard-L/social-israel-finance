@@ -7,26 +7,15 @@ import { ContractEmployee } from "./ContractEmployee";
 import { SelfEmployee } from "./SelfEmployee";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import { useRef } from "react";
-import { EMPLOYMENT_STATUS } from "../Interface/EmploymentStatus"
+import { EMPLOYMENT_STATUS } from "../Interface/EmploymentStatus";
 
 export function TypeForm({}) {
   const { data, setData, setStep, step } = useContext(DataContext);
   const { userName, userId, direction, hiddenPhone, employeeInfo } = data;
   const [isBtnDisabled, setIsBtnDisabled] = useState(true);
   const [isFinishedFisrtForm, setIsFinishedFirstForm] = useState(false);
-  const emptyInfo = {
-    jobTitleSelfEmployee: "",
-    jobTitleContractEmployee: "",
-    startMonthSelfEmployee: "",
-    startMonthContractEmployee: "",
-    monthSalary: "",
-    companyName: "",
-    brutoSalary: "",
-    jobPercentage: "",
-  };
-  const [employeeForm, setEmployeeForm] = useState(
-    data.employeeInfo ?? emptyInfo
-  );
+
+  const [employeeForm, setEmployeeForm] = useState(employeeInfo || {});
 
   const handleNextStep = () => {
     setData({ ...data, employeeForm });
@@ -34,7 +23,10 @@ export function TypeForm({}) {
       setStep(step + 1);
       return;
     }
-    if (employeeInfo.employmentStatus === EMPLOYMENT_STATUS.Employee || employeeInfo.employmentStatus === EMPLOYMENT_STATUS.Independent) {
+    if (
+      employeeInfo.employmentStatus === EMPLOYMENT_STATUS.Employee ||
+      employeeInfo.employmentStatus === EMPLOYMENT_STATUS.Independent
+    ) {
       setStep(step + 1);
     } else {
       setIsFinishedFirstForm(true);
@@ -84,7 +76,7 @@ export function TypeForm({}) {
               color: "#4091df",
             }}
           >
-            {employeeInfo.employmentStatus}
+            {employeeInfo?.employmentStatus}
           </Typography>
         </div>
 
@@ -104,7 +96,8 @@ export function TypeForm({}) {
         ) : (
           ""
         )}
-        {employeeInfo.employmentStatus === EMPLOYMENT_STATUS.Combined && !isFinishedFisrtForm ? (
+        {employeeInfo.employmentStatus === EMPLOYMENT_STATUS.Combined &&
+        !isFinishedFisrtForm ? (
           <ContractEmployee
             employeeForm={employeeForm}
             setEmployeeForm={setEmployeeForm}
@@ -112,7 +105,8 @@ export function TypeForm({}) {
         ) : (
           ""
         )}
-        {employeeInfo.employmentStatus === EMPLOYMENT_STATUS.Combined && isFinishedFisrtForm ? (
+        {employeeInfo.employmentStatus === EMPLOYMENT_STATUS.Combined &&
+        isFinishedFisrtForm ? (
           <SelfEmployee
             employeeForm={employeeForm}
             setEmployeeForm={setEmployeeForm}

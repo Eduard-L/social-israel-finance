@@ -12,21 +12,32 @@ export function SharedFields({
   isSelfEmployee,
 }) {
   const { data } = useContext(DataContext);
+  const { employeeInfo } = data;
   const {
     jobTitleSelfEmployee,
     jobTitleContractEmployee,
     startMonthSelfEmployee,
     startMonthContractEmployee,
-    monthSalary,
-    companyName,
-  } = employeeForm;
+  } = employeeInfo;
 
-  const [jobTitle, setJobTitle] = useState(() =>
-    isSelfEmployee ? jobTitleSelfEmployee : jobTitleContractEmployee
-  );
-  const [startMonth, setStartMonth] = useState(() =>
-    isSelfEmployee ? startMonthSelfEmployee : startMonthContractEmployee
-  );
+  const [jobTitle, setJobTitle] = useState(() => {
+    if (isSelfEmployee && jobTitleSelfEmployee) {
+      return jobTitleSelfEmployee;
+    } else if (jobTitleContractEmployee && !isSelfEmployee) {
+      return jobTitleContractEmployee;
+    } else {
+      return "";
+    }
+  });
+  const [startMonth, setStartMonth] = useState(() => {
+    if (isSelfEmployee && startMonthSelfEmployee) {
+      return startMonthSelfEmployee;
+    } else if (startMonthContractEmployee && !isSelfEmployee) {
+      return startMonthContractEmployee;
+    } else {
+      return "";
+    }
+  });
 
   const jobTitleName = isSelfEmployee
     ? "jobTitleSelfEmployee"

@@ -5,11 +5,15 @@ import { useContext } from "react";
 import { DataContext } from "../context/DataContext";
 import ErrorIcon from "@mui/icons-material/Error";
 import { SharedFields } from "./SharedFields";
+import { useState } from "react";
 
 export function SelfEmployee({ employeeForm, setEmployeeForm }) {
-  const { data, setStep, step } = useContext(DataContext);
-  const { userName, userId, direction, hiddenPhone } = data;
-  const { jobTitle, startMonth, monthSalary } = employeeForm;
+  const { data, setStep } = useContext(DataContext);
+  const { direction, employeeInfo } = data;
+
+  const [monthSalary, setMonthSalary] = useState(
+    employeeInfo.monthSalary ?? ""
+  );
 
   return (
     <div
@@ -26,7 +30,7 @@ export function SelfEmployee({ employeeForm, setEmployeeForm }) {
         variant="standard"
         type="text"
         className="mt-4"
-        value={monthSalary}
+        value={monthSalary || ""}
         required
         placeholder="הכנסות עבודה מחודש קודם"
         InputProps={{
@@ -46,6 +50,7 @@ export function SelfEmployee({ employeeForm, setEmployeeForm }) {
         onChange={(e) => {
           if (!isNaN(e.target.value)) {
             setEmployeeForm({ ...employeeForm, monthSalary: e.target.value });
+            setMonthSalary(e.target.value);
           }
         }}
       />
