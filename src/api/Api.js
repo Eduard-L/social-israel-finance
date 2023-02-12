@@ -60,4 +60,4 @@ export class Api {
 }
 
 
-export const api = new Api("https://096invd60f.execute-api.eu-central-1.amazonaws.com");
+export const api = new Api("https://p0rkry9sw3.execute-api.eu-central-1.amazonaws.com");
