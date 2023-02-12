@@ -60,7 +60,7 @@ export function SharedFields({
         helperText={
           jobTitle?.length !== 0 && jobTitle?.length < 3 && "נא מלא שם תפקיד"
         }
-        placeholder="שם תפקיד"
+        placeholder=" תפקיד"
         InputProps={{
           endAdornment: (
             <InputAdornment position="end">
