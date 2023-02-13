@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import reactLogo from "./assets/react.svg";
 import "./App.css";
 import { Steper } from "./components/Slider";
 import { Logo } from "./components/Logo";
@@ -25,19 +24,24 @@ function App() {
   };
 
   return (
-    <div className="App w-screen h-screen flex flex-col items-center py-10 justify-between">
-      <Logo />
-      <DataContext.Provider
-        value={{ data, setData, step, setStep, isLoading, setIsLoading }}
+    <div className="App w-screen h-screen flex flex-col items-center justify-between py-10">
+      <div
+        className="h-full flex flex-col justify-between items-center relative rounded-xl p-10  main-container"
+        style={{ boxShadow: "0px 3px 20px #00000029" }}
       >
-        <Main step={step} />
-        <Steper
-          onNextStep={handleNextStep}
-          onPreStep={handleStepBack}
-          step={step}
-        />
-      </DataContext.Provider>
-      {isLoading ? <Loader /> : ""}
+        <Logo />
+        <DataContext.Provider
+          value={{ data, setData, step, setStep, isLoading, setIsLoading }}
+        >
+          <Main step={step} />
+          <Steper
+            onNextStep={handleNextStep}
+            onPreStep={handleStepBack}
+            step={step}
+          />
+        </DataContext.Provider>
+        {isLoading ? <Loader /> : ""}
+      </div>
     </div>
   );
 }

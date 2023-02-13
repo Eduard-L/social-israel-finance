@@ -120,7 +120,7 @@ export function EmployeeType({}) {
           אפשר להמשיך
           <KeyboardBackspaceIcon />
         </Button>
-        <Button
+        {/* <Button
           className=" rounded-full flex flex-row self-start bg-blue-500  "
           variant="contained"
           style={{
@@ -130,7 +130,7 @@ export function EmployeeType({}) {
           onClick={() => setStep(step - 1)}
         >
           <KeyboardBackspaceIcon />
-        </Button>
+        </Button> */}
       </div>
     </>
   );

@@ -5,7 +5,7 @@ import UploadIcon from "@mui/icons-material/Upload";
 import { Button, Typography } from "@mui/material";
 import { File } from "./File";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
-import { EMPLOYMENT_STATUS } from "../Interface/EmploymentStatus"
+import { EMPLOYMENT_STATUS } from "../Interface/EmploymentStatus";
 
 export function FileUploader({}) {
   const { data, setStep, step, setData } = useContext(DataContext);
@@ -19,7 +19,9 @@ export function FileUploader({}) {
       return "X-X יש לעלות תלושי שכר עבור חודשים ";
     } else if (employeeInfo.employmentStatus === EMPLOYMENT_STATUS.Employee) {
       return "X-X יש לעלות תלושי שכר עבור חודשים ";
-    } else if (employeeInfo.employmentStatus === EMPLOYMENT_STATUS.Independent) {
+    } else if (
+      employeeInfo.employmentStatus === EMPLOYMENT_STATUS.Independent
+    ) {
       return "X-X יש להעלות חשבונית עבור חודשים ";
     }
   };
@@ -39,12 +41,15 @@ export function FileUploader({}) {
     files.forEach((f) => {
       counter = counter + f.file.size;
     });
-    if (counter > 5000000) {
+    if (counter > 6000000) {
       // prevent upload files higher than 5MB
-      alert("upload limit 5MB");
+      alert("לא ניתן לעלות קבצים הגדולים מ 6 מגה-בייט");
       return;
     }
-    const f = { file: await convertBase64(e.target.files[0]), id: e.target.files[0].name };
+    const f = {
+      file: await convertBase64(e.target.files[0]),
+      id: e.target.files[0].name,
+    };
     setFiles([...files, f]);
   };
 
@@ -56,15 +61,15 @@ export function FileUploader({}) {
   const convertBase64 = (file) => {
     return new Promise((resolve, reject) => {
       const fileReader = new FileReader();
-      fileReader.readAsDataURL(file)
+      fileReader.readAsDataURL(file);
       fileReader.onload = () => {
         resolve(fileReader.result);
-      }
+      };
       fileReader.onerror = (error) => {
         reject(error);
-      }
-    })
-  }
+      };
+    });
+  };
 
   return (
     <div className="flex flex-col items-center justify-between w-full h-full">

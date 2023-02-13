@@ -30,7 +30,7 @@ export function Success({}) {
         במידה ויש שינויים במצבך התעסוקתי, יש לעדכן אותנו בהקדם
       </Typography>
       <Link href="mailto:sfi@sfi.com" underline="always">
-        sfi@sfi.com
+        matan@socialfinance.org.il
       </Link>
     </div>
   );
