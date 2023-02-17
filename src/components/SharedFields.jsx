@@ -58,7 +58,9 @@ export function SharedFields({
         error={jobTitle?.length < 3 && jobTitle.length !== 0}
         inputProps={{ minLength: 3 }}
         helperText={
-          jobTitle?.length !== 0 && jobTitle?.length < 3 && "נא מלא שם תפקיד"
+          jobTitle?.length !== 0 &&
+          jobTitle?.length < 3 &&
+          "  נא מלא שם תפקיד , מינימום 3 תווים"
         }
         placeholder=" תפקיד"
         InputProps={{
@@ -87,20 +89,24 @@ export function SharedFields({
         value={startMonth}
         required
         error={startMonth?.length < 2 && startMonth.length !== 0}
-        placeholder="תאריך תחילת עבודה"
-        InputProps={{
-          endAdornment: (
-            <InputAdornment position="end">
-              {startMonth?.length > 1 ? (
-                <DoneIcon style={{ color: "green" }} />
-              ) : startMonth?.length === 0 ? (
-                ""
-              ) : (
-                <ErrorIcon style={{ color: "red" }} />
-              )}
-            </InputAdornment>
-          ),
+        label="תאריך תחילת עבודה"
+        InputLabelProps={{
+          shrink: true,
+          style: { color: "red", right: -105, fontWeight: "bold" },
         }}
+        // InputProps={{
+        //   endAdornment: (
+        //     <InputAdornment position="end">
+        //       {startMonth?.length > 1 ? (
+        //         <DoneIcon style={{ color: "green" }} />
+        //       ) : startMonth?.length === 0 ? (
+        //         ""
+        //       ) : (
+        //         <ErrorIcon style={{ color: "red" }} />
+        //       )}
+        //     </InputAdornment>
+        //   ),
+        // }}
         onChange={(e) => {
           setStartMonth(e.target.value);
           setEmployeeForm({

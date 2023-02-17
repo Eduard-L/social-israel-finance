@@ -4,3 +4,6 @@
     /* margin: 0px 6px; */
   }
 }
+.MuiFormHelperText-root {
+  text-align: start;
+}
