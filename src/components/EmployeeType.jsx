@@ -22,6 +22,13 @@ export function EmployeeType({}) {
     }
   };
 
+  const handleChangeType = (t) => {
+    if (type === t) return;
+
+    setType(t);
+    setData({ ...data, employeeInfo: { employmentStatus: t } });
+  };
+
   return (
     <>
       <div className="flex flex-col">
@@ -50,7 +57,7 @@ export function EmployeeType({}) {
                 !(type === EMPLOYMENT_STATUS.Independent) &&
                 "2px solid #4091df",
             }}
-            onClick={() => setType(EMPLOYMENT_STATUS.Independent)}
+            onClick={() => handleChangeType(EMPLOYMENT_STATUS.Independent)}
           >
             עצמאי
           </Button>
@@ -66,7 +73,7 @@ export function EmployeeType({}) {
               border:
                 !(type === EMPLOYMENT_STATUS.Employee) && "2px solid #4091df",
             }}
-            onClick={() => setType(EMPLOYMENT_STATUS.Employee)}
+            onClick={() => handleChangeType(EMPLOYMENT_STATUS.Employee)}
           >
             שכיר
           </Button>
@@ -82,7 +89,7 @@ export function EmployeeType({}) {
               border:
                 !(type === EMPLOYMENT_STATUS.Combined) && "2px solid #4091df",
             }}
-            onClick={() => setType(EMPLOYMENT_STATUS.Combined)}
+            onClick={() => handleChangeType(EMPLOYMENT_STATUS.Combined)}
           >
             שכיר/ה+עצמאי/ית
           </Button>
@@ -101,7 +108,7 @@ export function EmployeeType({}) {
                 "2px solid #4091df",
             }}
             onClick={() => {
-              setType(EMPLOYMENT_STATUS.Not_Employed);
+              handleChangeType(EMPLOYMENT_STATUS.Not_Employed);
               setData({ ...data, employeeForm: null });
             }}
           >

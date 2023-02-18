@@ -8,7 +8,8 @@ import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import { EMPLOYMENT_STATUS } from "../Interface/EmploymentStatus";
 
 export function FileUploader({}) {
-  const { data, setStep, step, setData } = useContext(DataContext);
+  const { data, setStep, step, setData, handleOpenMessage } =
+    useContext(DataContext);
   const { direction, employeeInfo } = data;
   const [files, setFiles] = useState(data?.files ?? []);
 
@@ -28,7 +29,10 @@ export function FileUploader({}) {
 
   const handleNextStep = () => {
     if (files.length === 0) {
-      alert("please upload relevant files - יש לעלות מסמכים נדרשים להמשך");
+      handleOpenMessage(
+        "please upload relevant files - יש לעלות מסמכים נדרשים להמשך",
+        "warning"
+      );
       return;
     }
     setData({ ...data, files: files });
@@ -43,7 +47,7 @@ export function FileUploader({}) {
     });
     if (counter > 6000000) {
       // prevent upload files higher than 5MB
-      alert("לא ניתן לעלות קבצים הגדולים מ 6 מגה-בייט");
+      handleOpenMessage("לא ניתן לעלות קבצים הגדולים מ 6 מגה-בייט", "warning");
       return;
     }
     const f = {
@@ -122,7 +126,7 @@ export function FileUploader({}) {
           className="text-center underline mt-6 "
           style={{ cursor: "pointer" }}
           onClick={() => {
-            alert("paste link to redirect");
+            handleOpenMessage("error", "error");
           }}
         >
           לעזרה בהעלאת קבצים

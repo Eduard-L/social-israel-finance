@@ -12,13 +12,13 @@ export function SharedFields({
   isSelfEmployee,
 }) {
   const { data } = useContext(DataContext);
-  const { employeeInfo } = data;
+  // const { employeeInfo } = data;
   const {
     jobTitleSelfEmployee,
     jobTitleContractEmployee,
     startMonthSelfEmployee,
     startMonthContractEmployee,
-  } = employeeInfo;
+  } = employeeForm;
 
   const [jobTitle, setJobTitle] = useState(() => {
     if (isSelfEmployee && jobTitleSelfEmployee) {
@@ -29,6 +29,9 @@ export function SharedFields({
       return "";
     }
   });
+
+  console.log(`job title, ${jobTitle}`);
+
   const [startMonth, setStartMonth] = useState(() => {
     if (isSelfEmployee && startMonthSelfEmployee) {
       return startMonthSelfEmployee;
@@ -55,8 +58,7 @@ export function SharedFields({
         required
         className="mt-4 w-full"
         value={jobTitle}
-        error={jobTitle?.length < 3 && jobTitle.length !== 0}
-        inputProps={{ minLength: 3 }}
+        error={jobTitle.length < 3 && jobTitle.length !== 0}
         helperText={
           jobTitle?.length !== 0 &&
           jobTitle?.length < 3 &&
@@ -64,6 +66,7 @@ export function SharedFields({
         }
         placeholder=" תפקיד"
         InputProps={{
+          minLength: 3,
           endAdornment: (
             <InputAdornment position="end">
               {jobTitle?.length > 2 ? (

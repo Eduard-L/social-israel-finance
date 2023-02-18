@@ -12,13 +12,13 @@ export function ContractEmployee({ employeeForm, setEmployeeForm }) {
   const { direction, employeeInfo } = data;
 
   const [companyName, setCompanyName] = useState(
-    employeeInfo.companyName ?? ""
+    employeeForm.companyName ?? ""
   );
   const [jobPercentage, setJobPercentage] = useState(
-    employeeInfo.jobPercentage ?? ""
+    employeeForm.jobPercentage ?? ""
   );
   const [brutoSalary, setBrutoSalary] = useState(
-    employeeInfo.brutoSalary ?? ""
+    employeeForm.brutoSalary ?? ""
   );
 
   return (

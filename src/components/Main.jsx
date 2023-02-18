@@ -10,7 +10,7 @@ import { TypeForm } from "./TypeForm";
 import { FileUploader } from "./FileUploader";
 
 export function Main({}) {
-  const { data, setData, setStep, step, setIsLoading } =
+  const { data, setData, setStep, step, setIsLoading, handleOpenMessage } =
     useContext(DataContext);
   const { userId } = data;
   const [id, setId] = useState(userId ?? "");
@@ -18,7 +18,7 @@ export function Main({}) {
 
   const handleSendSmsBtnClick = async (toSentAgain) => {
     if (id.length !== 9) {
-      alert("id in not valid");
+      handleOpenMessage("id in not valid", "error");
       return;
     }
     setIsLoading(true);
@@ -34,16 +34,22 @@ export function Main({}) {
           method: method,
           hiddenPhone: userData.hiddenPhone,
         });
-        // alert("sms was sent succefully and the id was saved for next page"); // success response
+
         if (!toSentAgain) {
           setStep(step + 1);
         }
       } else {
-        alert("something went wrong, check your id or connection");
+        handleOpenMessage(
+          "something went wrong, please check your id or connection",
+          "error"
+        );
       }
     } catch (e) {
       console.log(e);
-      alert("something went wrong, check your id or connection");
+      handleOpenMessage(
+        "something went wrong, please check your id or connection",
+        "error"
+      );
     } finally {
       setIsLoading(false);
     }
@@ -56,14 +62,13 @@ export function Main({}) {
 
       if (employeeFormDetails) {
         setData({ ...data, employeeInfo: employeeFormDetails });
-        // alert("code was veryfied");
         setStep(step + 1);
       } else {
-        alert("something went wrong , try again");
+        handleOpenMessage("something went wrong , try again", "error");
       }
     } catch (e) {
       console.log(e);
-      alert("something went wrong");
+      handleOpenMessage("something went wrong, please check the code", "error");
     } finally {
       setIsLoading(false);
     }

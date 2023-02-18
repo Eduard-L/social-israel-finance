@@ -6,14 +6,30 @@ import { useState } from "react";
 import { api } from "../api/Api";
 
 export function AdditionalInfo() {
-  const { data, step, setStep, setData } = useContext(DataContext);
+  const { data, step, setStep, setData, handleOpenMessage, setIsLoading } =
+    useContext(DataContext);
   const { direction } = data;
   const [text, setText] = useState(data.additionText ?? "");
 
   const handleSendAllInfo = async (finalInfo) => {
+    setIsLoading(true);
     console.log(finalInfo);
+    try {
+      const response = await api.handleSubmit(
+        finalInfo,
+        finalInfo.files,
+        finalInfo.userId
+      );
+      if (response) {
+        handleOpenMessage("info was sent successfully", "success");
+        setStep(step + 1);
+      }
+    } catch {
+      handleOpenMessage("something went wrong", "error");
+    } finally {
+      setIsLoading(false);
+    }
 
-    const response = await api.handleSubmit(finalInfo, finalInfo.files, finalInfo.userId)
     //final request to the server
   };
 
@@ -44,9 +60,7 @@ export function AdditionalInfo() {
               return { ...data, additionText: text };
             });
             // alert("info is sent");
-            console.log(data);
             handleSendAllInfo({ ...data, additionText: text });
-            setStep(step + 1);
           }}
         >
           שליחת דיווח

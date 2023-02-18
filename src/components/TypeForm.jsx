@@ -17,8 +17,15 @@ export function TypeForm({}) {
 
   const [employeeForm, setEmployeeForm] = useState(employeeInfo || {});
 
+  console.log(isBtnDisabled);
+  console.log(employeeForm);
+
+  useEffect(() => {
+    setData({ ...data, employeeInfo: employeeForm });
+  }, [employeeForm]);
+
   const handleNextStep = () => {
-    setData({ ...data, employeeForm });
+    setData({ ...data, employeeInfo: employeeForm });
     if (isFinishedFisrtForm) {
       setStep(step + 1);
       return;
@@ -51,9 +58,9 @@ export function TypeForm({}) {
   };
 
   useEffect(() => {
-    if (!form.current) return;
+    // if (!form.current) return;
     handleCheckFormValidity();
-  }, [employeeForm, isFinishedFisrtForm]);
+  }, [employeeForm, step]);
 
   return (
     <form ref={form} className="flex flex-col justify-between w-full h-full">
