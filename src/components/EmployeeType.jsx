@@ -26,7 +26,7 @@ export function EmployeeType({}) {
     if (type === t) return;
 
     setType(t);
-    setData({ ...data, employeeInfo: { employmentStatus: t } });
+    setData({ ...data, files: [], employeeInfo: { employmentStatus: t } });
   };
 
   return (

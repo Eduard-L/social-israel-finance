@@ -8,6 +8,7 @@ import { SelfEmployee } from "./SelfEmployee";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import { useRef } from "react";
 import { EMPLOYMENT_STATUS } from "../Interface/EmploymentStatus";
+import { handleCheckValidation } from "../helpers/handlers";
 
 export function TypeForm({}) {
   const { data, setData, setStep, step } = useContext(DataContext);
@@ -16,9 +17,6 @@ export function TypeForm({}) {
   const [isFinishedFisrtForm, setIsFinishedFirstForm] = useState(false);
 
   const [employeeForm, setEmployeeForm] = useState(employeeInfo || {});
-
-  console.log(isBtnDisabled);
-  console.log(employeeForm);
 
   useEffect(() => {
     setData({ ...data, employeeInfo: employeeForm });
@@ -49,7 +47,6 @@ export function TypeForm({}) {
   const form = useRef();
 
   const handleCheckFormValidity = () => {
-    console.log(form.current.checkValidity());
     if (form.current.checkValidity()) {
       setIsBtnDisabled(false);
     } else {
@@ -60,7 +57,14 @@ export function TypeForm({}) {
   useEffect(() => {
     // if (!form.current) return;
     handleCheckFormValidity();
-  }, [employeeForm, step]);
+    setIsBtnDisabled(() =>
+      handleCheckValidation(
+        employeeForm,
+        employeeInfo.employmentStatus,
+        isFinishedFisrtForm
+      )
+    );
+  }, [employeeForm, step, isFinishedFisrtForm, form]);
 
   return (
     <form ref={form} className="flex flex-col justify-between w-full h-full">

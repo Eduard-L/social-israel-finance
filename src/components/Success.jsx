@@ -5,7 +5,7 @@ import { DataContext } from "../context/DataContext";
 
 export function Success({}) {
   const { data, setStep, step, isLoading } = useContext(DataContext);
-  console.log(data);
+
   const circleStyles = {
     backgroundColor: "#4091df",
     width: 200,

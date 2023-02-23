@@ -8,7 +8,7 @@ import { SharedFields } from "./SharedFields";
 import { useState } from "react";
 
 export function SelfEmployee({ employeeForm, setEmployeeForm }) {
-  const { data, setStep } = useContext(DataContext);
+  const { data, setStep, handleOpenMessage } = useContext(DataContext);
   const { direction, employeeInfo } = data;
 
   const [monthSalary, setMonthSalary] = useState(
@@ -29,15 +29,22 @@ export function SelfEmployee({ employeeForm, setEmployeeForm }) {
         id="standard-basic"
         variant="standard"
         type="text"
+        inputProps={{ minLength: 3 }}
         className="mt-4"
         value={monthSalary || ""}
+        error={monthSalary.length < 3 && monthSalary.length !== 0}
+        helperText={
+          monthSalary?.length !== 0 &&
+          monthSalary?.length < 3 &&
+          "  נא מלא הכנסות מחדוש קודם, מינימום 3 תווים"
+        }
         required
         placeholder="הכנסות עבודה מחודש קודם"
         InputProps={{
           endAdornment: (
             <InputAdornment position="end">
               ₪
-              {monthSalary?.length > 0 ? (
+              {monthSalary?.length > 2 ? (
                 <DoneIcon style={{ color: "green" }} />
               ) : monthSalary?.length === 0 ? (
                 " "
@@ -51,6 +58,8 @@ export function SelfEmployee({ employeeForm, setEmployeeForm }) {
           if (!isNaN(e.target.value)) {
             setEmployeeForm({ ...employeeForm, monthSalary: e.target.value });
             setMonthSalary(e.target.value);
+          } else {
+            handleOpenMessage("נא הקש מספרים בלבד", "error");
           }
         }}
       />

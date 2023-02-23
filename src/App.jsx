@@ -19,7 +19,7 @@ function App() {
   const [popupMessageProps, setPopupMeesageProps] = useState({
     isOpen: false,
     message: "",
-    type: "",
+    type: "success",
   });
 
   const handleClose = () => {

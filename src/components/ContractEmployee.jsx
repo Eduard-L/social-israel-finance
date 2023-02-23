@@ -8,7 +8,7 @@ import { SharedFields } from "./SharedFields";
 import PercentSharpIcon from "@mui/icons-material/PercentSharp";
 
 export function ContractEmployee({ employeeForm, setEmployeeForm }) {
-  const { data } = useContext(DataContext);
+  const { data, handleOpenMessage } = useContext(DataContext);
   const { direction, employeeInfo } = data;
 
   const [companyName, setCompanyName] = useState(
@@ -38,7 +38,7 @@ export function ContractEmployee({ employeeForm, setEmployeeForm }) {
         helperText={
           companyName?.length !== 0 &&
           companyName?.length < 3 &&
-          "הנה הזן שם חברה"
+          "הנה הזן שם חברה,3 תווים לפחות"
         }
         placeholder="שם חברה"
         InputProps={{
@@ -92,6 +92,8 @@ export function ContractEmployee({ employeeForm, setEmployeeForm }) {
           ) {
             setEmployeeForm({ ...employeeForm, jobPercentage: e.target.value });
             setJobPercentage(e.target.value);
+          } else {
+            handleOpenMessage("נא הזן ספרות בלבד", "error");
           }
         }}
       />
@@ -102,19 +104,19 @@ export function ContractEmployee({ employeeForm, setEmployeeForm }) {
         className="mt-4"
         required
         value={brutoSalary}
-        inputProps={{ minLength: 4 }}
-        error={brutoSalary?.length <= 3 && brutoSalary.length > 0}
+        inputProps={{ minLength: 3 }}
+        error={brutoSalary?.length <= 2 && brutoSalary.length > 0}
         helperText={
           brutoSalary?.length !== 0 &&
-          brutoSalary?.length <= 3 &&
-          "הזן שכר ברוטו"
+          brutoSalary?.length <= 2 &&
+          "הזן שכר ברוטות, לפחות 3 תווים"
         }
         placeholder="שכר ברוטו"
         InputProps={{
           endAdornment: (
             <InputAdornment position="end">
               ₪
-              {brutoSalary?.length > 3 ? (
+              {brutoSalary?.length > 2 ? (
                 <DoneIcon style={{ color: "green" }} />
               ) : brutoSalary?.length === 0 ? (
                 " "
@@ -128,6 +130,8 @@ export function ContractEmployee({ employeeForm, setEmployeeForm }) {
           if (!isNaN(e.target.value)) {
             setEmployeeForm({ ...employeeForm, brutoSalary: e.target.value });
             setBrutoSalary(e.target.value);
+          } else {
+            handleOpenMessage("נא הזן ספרות בלבד", "error");
           }
         }}
       />

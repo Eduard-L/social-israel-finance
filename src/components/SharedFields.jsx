@@ -57,6 +57,7 @@ export function SharedFields({
         type="text"
         required
         className="mt-4 w-full"
+        inputProps={{ minLength: 3 }}
         value={jobTitle}
         error={jobTitle.length < 3 && jobTitle.length !== 0}
         helperText={
@@ -95,21 +96,25 @@ export function SharedFields({
         label="תאריך תחילת עבודה"
         InputLabelProps={{
           shrink: true,
-          style: { color: "red", right: -105, fontWeight: "bold" },
+          style: {
+            color: startMonth.length !== 0 ? "#4091df" : "red",
+            right: -105,
+            fontWeight: "bold",
+          },
         }}
-        // InputProps={{
-        //   endAdornment: (
-        //     <InputAdornment position="end">
-        //       {startMonth?.length > 1 ? (
-        //         <DoneIcon style={{ color: "green" }} />
-        //       ) : startMonth?.length === 0 ? (
-        //         ""
-        //       ) : (
-        //         <ErrorIcon style={{ color: "red" }} />
-        //       )}
-        //     </InputAdornment>
-        //   ),
-        // }}
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position="end">
+              {startMonth?.length > 1 ? (
+                <DoneIcon style={{ color: "green" }} />
+              ) : startMonth?.length === 0 ? (
+                ""
+              ) : (
+                <ErrorIcon style={{ color: "red" }} />
+              )}
+            </InputAdornment>
+          ),
+        }}
         onChange={(e) => {
           setStartMonth(e.target.value);
           setEmployeeForm({
