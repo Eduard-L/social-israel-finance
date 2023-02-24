@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import "./App.css";
-import { Steper } from "./components/Slider";
-import { Logo } from "./components/Logo";
-import { Main } from "./components/Main";
-import { DataContext } from "./context/DataContext";
-import { Loader } from "./components/Loader";
-import { PopupWithMessage } from "./components/PopupWithMessage";
+import "../../styles/App.css";
+import { Steper } from "../features/Slider";
+import { Logo } from "../features/Logo";
+import { Main } from "./Main";
+import { DataContext } from "../../context/DataContext";
+import { Loader } from "../features/Loader";
+import { PopupWithMessage } from "../features/PopupWithMessage";
 
 function App() {
   const [step, setStep] = useState(0);
@@ -26,7 +26,7 @@ function App() {
     setPopupMeesageProps({
       isOpen: false,
       message: "",
-      type: "",
+      type: "warning",
     });
   };
 

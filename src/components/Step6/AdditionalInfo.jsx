@@ -1,9 +1,9 @@
 import { Typography, TextareaAutosize, Button } from "@mui/material";
-import { DataContext } from "../context/DataContext";
+import { DataContext } from "../../context/DataContext";
 import { useContext } from "react";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import { useState } from "react";
-import { api } from "../api/Api";
+import { api } from "../../api/Api";
 
 export function AdditionalInfo() {
   const { data, step, setStep, setData, handleOpenMessage, setIsLoading } =

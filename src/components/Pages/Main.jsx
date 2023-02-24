@@ -1,13 +1,13 @@
-import { IdStep } from "./IdStep";
-import { DataContext } from "../context/DataContext";
+import { IdStep } from "../Step1/IdStep";
+import { DataContext } from "../../context/DataContext";
 import { useContext, useState } from "react";
-import { VerifyCode } from "./VerifyCode";
-import { api } from "../api/Api";
-import { EmployeeType } from "./EmployeeType";
-import { Success } from "./Success";
-import { AdditionalInfo } from "./AdditionalInfo";
-import { TypeForm } from "./TypeForm";
-import { FileUploader } from "./FileUploader";
+import { VerifyCode } from "../Step2/VerifyCode";
+import { api } from "../../api/Api";
+import { EmployeeType } from "../Step3/EmployeeType";
+import { Success } from "../Step7/Success";
+import { AdditionalInfo } from "../Step6/AdditionalInfo";
+import { TypeForm } from "../Step4/TypeForm";
+import { FileUploader } from "../Step5/FileUploader";
 
 export function Main({}) {
   const { data, setData, setStep, step, setIsLoading, handleOpenMessage } =

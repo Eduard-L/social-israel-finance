@@ -1,11 +1,11 @@
 import { useContext } from "react";
-import { DataContext } from "../context/DataContext";
+import { DataContext } from "../../context/DataContext";
 import { useState } from "react";
 import UploadIcon from "@mui/icons-material/Upload";
 import { Button, Typography } from "@mui/material";
 import { File } from "./File";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
-import { EMPLOYMENT_STATUS } from "../Interface/EmploymentStatus";
+import { EMPLOYMENT_STATUS } from "../../Interface/EmploymentStatus";
 
 export function FileUploader({}) {
   const { data, setStep, step, setData, handleOpenMessage } =

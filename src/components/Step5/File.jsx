@@ -1,7 +1,7 @@
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import { Typography } from "@mui/material";
-import { Loader } from "./Loader";
+import { Loader } from "../features/Loader";
 export function File({ isLoading, fileName, onDelete, id }) {
   const textoverflow = {
     width: "70%",

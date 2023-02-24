@@ -1,7 +1,7 @@
 import { Link, Typography } from "@mui/material";
 import DoneIcon from "@mui/icons-material/Done";
 import { useContext } from "react";
-import { DataContext } from "../context/DataContext";
+import { DataContext } from "../../context/DataContext";
 
 export function Success({}) {
   const { data, setStep, step, isLoading } = useContext(DataContext);

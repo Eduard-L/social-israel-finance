@@ -1,8 +1,8 @@
 import { Typography, Button } from "@mui/material";
-import { DataContext } from "../context/DataContext";
+import { DataContext } from "../../context/DataContext";
 import { useContext } from "react";
 import { useState } from "react";
-import { EMPLOYMENT_STATUS } from "../Interface/EmploymentStatus";
+import { EMPLOYMENT_STATUS } from "../../Interface/EmploymentStatus";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 
 export function EmployeeType({}) {

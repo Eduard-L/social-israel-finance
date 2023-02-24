@@ -2,13 +2,13 @@ import { Typography, Button, TextField } from "@mui/material";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useContext } from "react";
-import { DataContext } from "../context/DataContext";
+import { DataContext } from "../../context/DataContext";
 import { ContractEmployee } from "./ContractEmployee";
 import { SelfEmployee } from "./SelfEmployee";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import { useRef } from "react";
-import { EMPLOYMENT_STATUS } from "../Interface/EmploymentStatus";
-import { handleCheckValidation } from "../helpers/handlers";
+import { EMPLOYMENT_STATUS } from "../../Interface/EmploymentStatus";
+import { handleCheckValidation } from "../../helpers/handlers";
 
 export function TypeForm({}) {
   const { data, setData, setStep, step } = useContext(DataContext);
