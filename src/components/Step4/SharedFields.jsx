@@ -30,8 +30,6 @@ export function SharedFields({
     }
   });
 
-  console.log(`job title, ${jobTitle}`);
-
   const [startMonth, setStartMonth] = useState(() => {
     if (isSelfEmployee && startMonthSelfEmployee) {
       return startMonthSelfEmployee;

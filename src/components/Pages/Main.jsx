@@ -26,7 +26,7 @@ export function Main({}) {
     try {
       const userData = await api.handleVerifyId(id, method);
 
-      if (userData) {
+      if (userData?.userName) {
         setData({
           ...data,
           userId: id,

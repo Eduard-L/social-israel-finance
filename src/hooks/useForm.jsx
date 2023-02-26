@@ -16,8 +16,6 @@ export function useForm(employeeInfo) {
 
   const [isValid, setIsValid] = useState(false);
 
-  console.log(isValid);
-
   const validateForm = () => {
     const form = document.querySelector("form");
     const allInputs = document.querySelectorAll("form input");

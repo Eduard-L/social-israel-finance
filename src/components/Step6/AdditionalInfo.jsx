@@ -13,7 +13,7 @@ export function AdditionalInfo() {
 
   const handleSendAllInfo = async (finalInfo) => {
     setIsLoading(true);
-    console.log(finalInfo);
+
     try {
       const response = await api.handleSubmit(
         finalInfo,

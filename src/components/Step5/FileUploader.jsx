@@ -11,19 +11,30 @@ export function FileUploader({}) {
   const { data, setStep, step, setData, handleOpenMessage } =
     useContext(DataContext);
   const { direction, employeeInfo } = data;
+
   const [files, setFiles] = useState(data?.files ?? []);
+  const lastTimeUpdatedSalary = employeeInfo?.lastTimeUpdatedSalary
+    ? employeeInfo?.lastTimeUpdatedSalary.substring(1, 3) +
+      employeeInfo?.lastTimeUpdatedSalary.substring(5, 7)
+    : "X";
+
+  const currentMonth = `${new Date().getMonth() + 1}.${new Date()
+    .getFullYear()
+    .toString()
+    .substring(2, 5)}`;
 
   const handleTitle = () => {
-    if (employeeInfo.employmentStatus === EMPLOYMENT_STATUS.Not_Employed) {
+    if (employeeInfo?.employmentStatus === EMPLOYMENT_STATUS.Not_Employed) {
       return "יש לעלות תלושי שכר מביטוח לאומי";
-    } else if (employeeInfo.employmentStatus === EMPLOYMENT_STATUS.Combined) {
-      return "X-X יש לעלות תלושי שכר עבור חודשים ";
-    } else if (employeeInfo.employmentStatus === EMPLOYMENT_STATUS.Employee) {
-      return "X-X יש לעלות תלושי שכר עבור חודשים ";
     } else if (
-      employeeInfo.employmentStatus === EMPLOYMENT_STATUS.Independent
+      employeeInfo?.employmentStatus === EMPLOYMENT_STATUS.Employee ||
+      employeeInfo?.employmentStatus === EMPLOYMENT_STATUS.Combined
     ) {
-      return "X-X יש להעלות חשבונית עבור חודשים ";
+      return `${lastTimeUpdatedSalary} - ${currentMonth} יש לעלות תלושי שכר עבור חודשים`;
+    } else if (
+      employeeInfo?.employmentStatus === EMPLOYMENT_STATUS.Independent
+    ) {
+      return `${lastTimeUpdatedSalary} - ${currentMonth} יש לעלות תלושי שכר עבור חודשים`;
     }
   };
 
@@ -82,7 +93,7 @@ export function FileUploader({}) {
 
         {employeeInfo.employmentStatus === EMPLOYMENT_STATUS.Combined ? (
           <Typography className="text-center ">
-            X-X יש להעלות חשבונית עבור חודשים
+            {`${lastTimeUpdatedSalary} - ${currentMonth} יש להעלות חשבונית עבור חודשים`}
           </Typography>
         ) : (
           ""

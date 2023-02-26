@@ -9,11 +9,18 @@ export function EmployeeType({}) {
   const { data, setData, setStep, step } = useContext(DataContext);
   const { userName, userId, direction, employeeInfo } = data;
   const [type, setType] = useState(employeeInfo?.employmentStatus ?? "שכיר");
+  const [lastUpdatedSalaryDate, setLastUpdatedSalaryDate] = useState(
+    employeeInfo?.lastTimeUpdatedSalary || null
+  );
 
   const handleNextStep = () => {
     setData({
       ...data,
-      employeeInfo: { ...employeeInfo, employmentStatus: type },
+      employeeInfo: {
+        ...employeeInfo,
+        employmentStatus: type,
+        lastTimeUpdatedSalary: lastUpdatedSalaryDate,
+      },
     });
     if (type === EMPLOYMENT_STATUS.Not_Employed) {
       setStep(step + 2);
@@ -26,7 +33,14 @@ export function EmployeeType({}) {
     if (type === t) return;
 
     setType(t);
-    setData({ ...data, files: [], employeeInfo: { employmentStatus: t } });
+    setData({
+      ...data,
+      files: [],
+      employeeInfo: {
+        employmentStatus: t,
+        lastTimeUpdatedSalary: lastUpdatedSalaryDate,
+      },
+    });
   };
 
   return (
