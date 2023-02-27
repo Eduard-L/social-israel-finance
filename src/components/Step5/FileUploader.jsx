@@ -91,13 +91,13 @@ export function FileUploader({}) {
       <div className="flex flex-col items-center w-full">
         <Typography className="text-center ">{handleTitle()}</Typography>
 
-        {employeeInfo.employmentStatus === EMPLOYMENT_STATUS.Combined ? (
+        {/* {employeeInfo.employmentStatus === EMPLOYMENT_STATUS.Combined ? (
           <Typography className="text-center ">
             {`${lastTimeUpdatedSalary} - ${currentMonth} יש להעלות חשבונית עבור חודשים`}
           </Typography>
         ) : (
           ""
-        )}
+        )} */}
 
         <div className="mt-6 w-full">
           {files.map((f) => (
