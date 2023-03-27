@@ -10,7 +10,7 @@ import { EMPLOYMENT_STATUS } from "../../Interface/EmploymentStatus";
 export function FileUploader({}) {
   const { data, setStep, step, setData, handleOpenMessage } =
     useContext(DataContext);
-  const { direction, employeeInfo } = data;
+  const { direction, employeeInfo, translation } = data;
 
   const [files, setFiles] = useState(data?.files ?? []);
   const lastTimeUpdatedSalary = employeeInfo?.lastTimeUpdatedSalary
@@ -25,16 +25,16 @@ export function FileUploader({}) {
 
   const handleTitle = () => {
     if (employeeInfo?.employmentStatus === EMPLOYMENT_STATUS.Not_Employed) {
-      return "יש לעלות תלושי שכר מביטוח לאומי";
+      return `${translation.uploadPayCheckOne}`;
     } else if (
       employeeInfo?.employmentStatus === EMPLOYMENT_STATUS.Employee ||
       employeeInfo?.employmentStatus === EMPLOYMENT_STATUS.Combined
     ) {
-      return `${lastTimeUpdatedSalary} - ${currentMonth} יש לעלות תלושי שכר עבור חודשים`;
+      return ` ${translation.uploadPayCheckTwo} ${lastTimeUpdatedSalary} - ${currentMonth}`;
     } else if (
       employeeInfo?.employmentStatus === EMPLOYMENT_STATUS.Independent
     ) {
-      return `${lastTimeUpdatedSalary} - ${currentMonth} יש לעלות תלושי שכר עבור חודשים`;
+      return ` ${translation.uploadPayCheckTwo} ${lastTimeUpdatedSalary} - ${currentMonth}`;
     }
   };
 
@@ -58,7 +58,7 @@ export function FileUploader({}) {
     });
     if (counter > 6000000) {
       // prevent upload files higher than 5MB
-      handleOpenMessage("לא ניתן לעלות קבצים הגדולים מ 6 מגה-בייט", "warning");
+      handleOpenMessage(`${translation.uploadFilesValidation}`, "warning");
       return;
     }
     const f = {
@@ -89,15 +89,9 @@ export function FileUploader({}) {
   return (
     <div className="flex flex-col items-center justify-between w-full h-full">
       <div className="flex flex-col items-center w-full">
-        <Typography className="text-center ">{handleTitle()}</Typography>
-
-        {/* {employeeInfo.employmentStatus === EMPLOYMENT_STATUS.Combined ? (
-          <Typography className="text-center ">
-            {`${lastTimeUpdatedSalary} - ${currentMonth} יש להעלות חשבונית עבור חודשים`}
-          </Typography>
-        ) : (
-          ""
-        )} */}
+        <Typography className="text-center " style={{ direction: direction }}>
+          {handleTitle()}
+        </Typography>
 
         <div className="mt-6 w-full">
           {files.map((f) => (
@@ -140,18 +134,18 @@ export function FileUploader({}) {
             handleOpenMessage("error", "error");
           }}
         >
-          לעזרה בהעלאת קבצים
+          {translation.helpUploading}
         </Typography>
       </div>
       <div className="flex flex-row justify-between w-full">
         <Button
           className=" rounded-full bg-blue-500 flex flex-row self-start "
           variant="contained"
-          style={{ direction: direction }}
+          style={{ direction: "rtl" }}
           disabled={files.length === 0}
           onClick={() => handleNextStep()}
         >
-          אפשר להמשיך
+          {translation.Continue}
           <KeyboardBackspaceIcon />
         </Button>
         <Button

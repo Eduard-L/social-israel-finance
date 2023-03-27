@@ -12,10 +12,11 @@ import { DataContext } from "../../context/DataContext";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import DoneIcon from "@mui/icons-material/Done";
 import ErrorIcon from "@mui/icons-material/Error";
+import { translationsObj } from "../../helpers/translations";
 
 export function IdStep({ onBtnClick, id, setId, method, setMethod }) {
   const { data, setData, isLoading } = useContext(DataContext);
-  const { isEnglish, direction } = data;
+  const { isEnglish, direction, translation } = data;
 
   return (
     <>
@@ -34,7 +35,12 @@ export function IdStep({ onBtnClick, id, setId, method, setMethod }) {
           }}
           variant="contained"
           onClick={() =>
-            setData({ ...data, isEnglish: true, direction: "ltr" })
+            setData({
+              ...data,
+              isEnglish: true,
+              direction: "ltr",
+              translation: translationsObj["en"],
+            })
           }
         >
           English
@@ -44,7 +50,12 @@ export function IdStep({ onBtnClick, id, setId, method, setMethod }) {
           variant="contained"
           sx={{ width: 110, transform: "translate(-10px, 0px)" }}
           onClick={() =>
-            setData({ ...data, isEnglish: false, direction: "rtl" })
+            setData({
+              ...data,
+              isEnglish: false,
+              direction: "rtl",
+              translation: translationsObj["he"],
+            })
           }
           style={{
             backgroundColor: isEnglish ? "lightgrey" : "",
@@ -59,10 +70,7 @@ export function IdStep({ onBtnClick, id, setId, method, setMethod }) {
         className="flex flex-col text-center justify-between "
         style={{ width: 250, direction: direction }}
       >
-        <Typography variant="subtitle2">
-          לקבל קוד אימות אישי לצורך כניסה לטופס הדיווח החודשי, יש להכניס מספר
-          תעודת זהות ולבחור באפשרות השליחה הרצויה:
-        </Typography>
+        <Typography variant="subtitle2">{translation.pageOneTitle}</Typography>
 
         <TextField
           id="standard-basic"
@@ -72,7 +80,9 @@ export function IdStep({ onBtnClick, id, setId, method, setMethod }) {
           value={id}
           error={id.length !== 9 && id.length > 0}
           helperText={
-            id.length !== 9 && id.length > 0 && "נא מלא תעודת זהות תקינה"
+            id.length !== 9 &&
+            id.length > 0 &&
+            `${translation.validationIdError}`
           }
           InputProps={{
             endAdornment: (
@@ -108,13 +118,13 @@ export function IdStep({ onBtnClick, id, setId, method, setMethod }) {
         </RadioGroup>
       </div>
       <Button
-        className=" rounded-full bg-blue-500 flex flex-row self-start "
+        className=" rounded-full bg-blue-500 self-start text-start "
         variant="contained"
-        sx={{ direction: direction }}
+        style={{ direction: "rtl" }}
         disabled={id.length !== 9 || isLoading}
         onClick={() => onBtnClick()}
       >
-        קבלת קוד אימות אישי
+        {translation.getPersonalVerCode}
         <KeyboardBackspaceIcon />
       </Button>
     </>

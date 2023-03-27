@@ -36,4 +36,3 @@ export function handleCheckValidation(data, type, isFinishedFirst) {
     return !isValid
 
 }
-

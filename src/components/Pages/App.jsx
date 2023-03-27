@@ -6,12 +6,14 @@ import { Main } from "./Main";
 import { DataContext } from "../../context/DataContext";
 import { Loader } from "../features/Loader";
 import { PopupWithMessage } from "../features/PopupWithMessage";
+import { translationsObj } from "../../helpers/translations";
 
 function App() {
   const [step, setStep] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState({
     isEnglish: false,
+    translation: translationsObj["he"],
     direction: "rtl",
     userId: "",
   });

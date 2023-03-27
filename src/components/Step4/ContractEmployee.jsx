@@ -9,7 +9,7 @@ import PercentSharpIcon from "@mui/icons-material/PercentSharp";
 
 export function ContractEmployee({ employeeForm, setEmployeeForm }) {
   const { data, handleOpenMessage } = useContext(DataContext);
-  const { direction, employeeInfo } = data;
+  const { direction, employeeInfo, translation } = data;
 
   const [companyName, setCompanyName] = useState(
     employeeForm.companyName ?? ""
@@ -38,9 +38,9 @@ export function ContractEmployee({ employeeForm, setEmployeeForm }) {
         helperText={
           companyName?.length !== 0 &&
           companyName?.length < 3 &&
-          "הנה הזן שם חברה,3 תווים לפחות"
+          `${translation.fillCoName}`
         }
-        placeholder="שם חברה"
+        placeholder={translation.companyName}
         InputProps={{
           endAdornment: (
             <InputAdornment position="end">
@@ -71,7 +71,7 @@ export function ContractEmployee({ employeeForm, setEmployeeForm }) {
         className="mt-4"
         required
         value={jobPercentage}
-        placeholder="אחוז משרה"
+        placeholder={translation.jobPercentage}
         InputProps={{
           endAdornment: (
             <InputAdornment position="end">
@@ -93,7 +93,7 @@ export function ContractEmployee({ employeeForm, setEmployeeForm }) {
             setEmployeeForm({ ...employeeForm, jobPercentage: e.target.value });
             setJobPercentage(e.target.value);
           } else {
-            handleOpenMessage("נא הזן ספרות בלבד", "error");
+            handleOpenMessage(`${translation.percentError}`, "error");
           }
         }}
       />
@@ -109,9 +109,9 @@ export function ContractEmployee({ employeeForm, setEmployeeForm }) {
         helperText={
           brutoSalary?.length !== 0 &&
           brutoSalary?.length <= 2 &&
-          "הזן שכר ברוטות, לפחות 3 תווים"
+          `${translation.pleaseFillGrossSalary}`
         }
-        placeholder="שכר ברוטו"
+        placeholder={translation.grossSalary}
         InputProps={{
           endAdornment: (
             <InputAdornment position="end">
@@ -131,7 +131,7 @@ export function ContractEmployee({ employeeForm, setEmployeeForm }) {
             setEmployeeForm({ ...employeeForm, brutoSalary: e.target.value });
             setBrutoSalary(e.target.value);
           } else {
-            handleOpenMessage("נא הזן ספרות בלבד", "error");
+            handleOpenMessage(`${translation.numbersOnly}`, "error");
           }
         }}
       />

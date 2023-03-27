@@ -12,13 +12,13 @@ import { FileUploader } from "../Step5/FileUploader";
 export function Main({}) {
   const { data, setData, setStep, step, setIsLoading, handleOpenMessage } =
     useContext(DataContext);
-  const { userId } = data;
+  const { userId, translation } = data;
   const [id, setId] = useState(userId ?? "");
   const [method, setMethod] = useState("WhatsApp");
 
   const handleSendSmsBtnClick = async (toSentAgain) => {
     if (id.length !== 9) {
-      handleOpenMessage("id in not valid", "error");
+      handleOpenMessage(`${translation.idCheckError}`, "error");
       return;
     }
     setIsLoading(true);
@@ -39,17 +39,11 @@ export function Main({}) {
           setStep(step + 1);
         }
       } else {
-        handleOpenMessage(
-          "something went wrong, please check your id or connection",
-          "error"
-        );
+        handleOpenMessage(`${translation.idCheckError}`, "error");
       }
     } catch (e) {
       console.log(e);
-      handleOpenMessage(
-        "something went wrong, please check your id or connection",
-        "error"
-      );
+      handleOpenMessage(`${translation.idCheckError}`, "error");
     } finally {
       setIsLoading(false);
     }
@@ -64,11 +58,11 @@ export function Main({}) {
         setData({ ...data, employeeInfo: employeeFormDetails });
         setStep(step + 1);
       } else {
-        handleOpenMessage("something went wrong , try again", "error");
+        handleOpenMessage(`${translation.tryAgain}`, "error");
       }
     } catch (e) {
       console.log(e);
-      handleOpenMessage("something went wrong, please check the code", "error");
+      handleOpenMessage(`${translation.tryAgain}`, "error");
     } finally {
       setIsLoading(false);
     }

@@ -8,7 +8,7 @@ import { api } from "../../api/Api";
 export function AdditionalInfo() {
   const { data, step, setStep, setData, handleOpenMessage, setIsLoading } =
     useContext(DataContext);
-  const { direction } = data;
+  const { direction, translation } = data;
   const [text, setText] = useState(data.additionText ?? "");
 
   const handleSendAllInfo = async (finalInfo) => {
@@ -36,7 +36,7 @@ export function AdditionalInfo() {
   return (
     <div className="flex flex-col items-center justify-between w-full h-full">
       <div className="w-full ">
-        <Typography className="text-center">:הערות נוספות</Typography>
+        <Typography className="text-center">{translation.Notes}</Typography>
         <TextareaAutosize
           aria-label="empty textarea"
           value={text}
@@ -63,7 +63,7 @@ export function AdditionalInfo() {
             handleSendAllInfo({ ...data, additionText: text });
           }}
         >
-          שליחת דיווח
+          {translation.SubmitReport}
         </Button>
         <Button
           className=" rounded-full flex flex-row self-start bg-blue-500  "

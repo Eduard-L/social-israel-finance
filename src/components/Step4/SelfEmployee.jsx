@@ -9,7 +9,7 @@ import { useState } from "react";
 
 export function SelfEmployee({ employeeForm, setEmployeeForm }) {
   const { data, setStep, handleOpenMessage } = useContext(DataContext);
-  const { direction, employeeInfo } = data;
+  const { direction, employeeInfo, translation } = data;
 
   const [monthSalary, setMonthSalary] = useState(
     employeeInfo.monthSalary ?? ""
@@ -36,10 +36,10 @@ export function SelfEmployee({ employeeForm, setEmployeeForm }) {
         helperText={
           monthSalary?.length !== 0 &&
           monthSalary?.length < 3 &&
-          "  נא מלא הכנסות מחדוש קודם, מינימום 3 תווים"
+          `${translation.pleaseFillGrossSalaryLastMonth}`
         }
         required
-        placeholder="הכנסות עבודה מחודש קודם"
+        placeholder={`${translation.salaryLastMonth}`}
         InputProps={{
           endAdornment: (
             <InputAdornment position="end">
@@ -59,7 +59,7 @@ export function SelfEmployee({ employeeForm, setEmployeeForm }) {
             setEmployeeForm({ ...employeeForm, monthSalary: e.target.value });
             setMonthSalary(e.target.value);
           } else {
-            handleOpenMessage("נא הקש מספרים בלבד", "error");
+            handleOpenMessage(`${translation.numbersOnly}`, "error");
           }
         }}
       />

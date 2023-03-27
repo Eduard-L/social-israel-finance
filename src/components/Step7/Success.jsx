@@ -5,6 +5,7 @@ import { DataContext } from "../../context/DataContext";
 
 export function Success({}) {
   const { data, setStep, step, isLoading } = useContext(DataContext);
+  const { translation } = data;
 
   const circleStyles = {
     backgroundColor: "#4091df",
@@ -21,13 +22,13 @@ export function Success({}) {
         <DoneIcon style={{ color: "white", fontSize: 50 }} />
         <Typography
           className="text-center "
-          style={{ color: "white", fontSize: "24px", lineHeight: "120%" }}
+          style={{ color: "white", fontSize: "21px", lineHeight: "120%" }}
         >
-          הדיווח נשלח בהצלחה
+          {translation.sentSuccesfully}
         </Typography>
       </div>
       <Typography className="text-center mt-10" style={{ width: 240 }}>
-        במידה ויש שינויים במצבך התעסוקתי, יש לעדכן אותנו בהקדם
+        {translation.ifChangedStatus}
       </Typography>
       <Link href="mailto:sfi@sfi.com" underline="always">
         matan@socialfinance.org.il

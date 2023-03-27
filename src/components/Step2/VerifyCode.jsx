@@ -9,15 +9,15 @@ import { InputAdornment } from "@material-ui/core";
 
 export function VerifyCode({ onSendCode, onSmsSend }) {
   const { data, setStep, step, isLoading } = useContext(DataContext);
-  const { userName, userId, direction, hiddenPhone } = data;
+  const { userName, userId, direction, hiddenPhone, translation } = data;
   const [code, setCode] = useState("");
-  const message = `הודעת טקסט נשלחה אלייך למס `;
+  const message = `${translation.sentTo}`;
 
   return (
     <>
       <div className="flex flex-col" style={{}}>
         <Typography className="text-center" style={{ fontWeight: "bold" }}>
-          ,שלום {userName}
+          ,{translation.hello} {userName}
         </Typography>
         <div className="flex flex-col">
           <Typography className="text-center" style={{}}>
@@ -31,7 +31,7 @@ export function VerifyCode({ onSendCode, onSmsSend }) {
           </Typography>
         </div>
         <Typography className="text-center" style={{}}>
-          יש להכניס את מס' האימות האישי שקיבלת
+          {translation.EnterVerificationCode}
         </Typography>
         <TextField
           id="standard-basic"
@@ -41,8 +41,12 @@ export function VerifyCode({ onSendCode, onSmsSend }) {
           style={{ direction: direction }}
           className="mt-6"
           error={code.length !== 6 && code.length > 0}
-          helperText={code.length !== 6 && code.length > 0 && "נא למלא מס אישי"}
-          placeholder="מספר אישי"
+          helperText={
+            code.length !== 6 &&
+            code.length > 0 &&
+            `${translation.EnterVerificationCode}`
+          }
+          placeholder={translation.personalNum}
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
@@ -73,18 +77,18 @@ export function VerifyCode({ onSendCode, onSmsSend }) {
             onSmsSend(true);
           }}
         >
-          לא קיבלתי שלחו שוב
+          {translation.sendAgain}
         </span>
       </div>
       <div className="flex flex-row justify-between w-full">
         <Button
           className=" rounded-full bg-blue-500 flex flex-row self-start "
           variant="contained"
-          sx={{ direction: direction }}
+          sx={{ direction: "rtl" }}
           disabled={code.length !== 6 || isLoading}
           onClick={() => onSendCode(code)}
         >
-          כניסה לטופס
+          {translation.enterToForm}
           <KeyboardBackspaceIcon />
         </Button>
         <Button

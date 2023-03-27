@@ -7,12 +7,24 @@ import { ContractEmployee } from "./ContractEmployee";
 import { SelfEmployee } from "./SelfEmployee";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import { useRef } from "react";
-import { EMPLOYMENT_STATUS } from "../../Interface/EmploymentStatus";
+import {
+  EMPLOYMENT_STATUS,
+  EMPLOYMENT_STATUS_OP_HE,
+  EMPLOYMENT_STATUS_OP_EN,
+} from "../../Interface/EmploymentStatus";
 import { handleCheckValidation } from "../../helpers/handlers";
 
 export function TypeForm({}) {
   const { data, setData, setStep, step } = useContext(DataContext);
-  const { userName, userId, direction, hiddenPhone, employeeInfo } = data;
+  const {
+    userName,
+    userId,
+    direction,
+    hiddenPhone,
+    employeeInfo,
+    isEnglish,
+    translation,
+  } = data;
   const [isBtnDisabled, setIsBtnDisabled] = useState(true);
   const [isFinishedFisrtForm, setIsFinishedFirstForm] = useState(false);
 
@@ -61,10 +73,13 @@ export function TypeForm({}) {
       handleCheckValidation(
         employeeForm,
         employeeInfo.employmentStatus,
-        isFinishedFisrtForm
+        isFinishedFisrtForm,
+        isEnglish
       )
     );
   }, [employeeForm, step, isFinishedFisrtForm, form]);
+
+  const status = isEnglish ? EMPLOYMENT_STATUS_OP_EN : EMPLOYMENT_STATUS_OP_HE;
 
   return (
     <form ref={form} className="flex flex-col justify-between w-full h-full">
@@ -87,7 +102,7 @@ export function TypeForm({}) {
               color: "#4091df",
             }}
           >
-            {employeeInfo?.employmentStatus}
+            {status[`${employeeInfo?.employmentStatus}`]}
           </Typography>
         </div>
 
@@ -130,11 +145,11 @@ export function TypeForm({}) {
         <Button
           className=" rounded-full bg-blue-500 flex flex-row self-start "
           variant="contained"
-          style={{ direction: direction }}
+          style={{ direction: "rtl" }}
           onClick={() => handleNextStep()}
           disabled={isBtnDisabled}
         >
-          אפשר להמשיך
+          {translation.Continue}
           <KeyboardBackspaceIcon />
         </Button>
         <Button

@@ -12,6 +12,7 @@ export function SharedFields({
   isSelfEmployee,
 }) {
   const { data } = useContext(DataContext);
+  const { translation } = data;
   // const { employeeInfo } = data;
   const {
     jobTitleSelfEmployee,
@@ -61,9 +62,9 @@ export function SharedFields({
         helperText={
           jobTitle?.length !== 0 &&
           jobTitle?.length < 3 &&
-          "  נא מלא שם תפקיד , מינימום 3 תווים"
+          `${translation.fillJobTitle}`
         }
-        placeholder=" תפקיד"
+        placeholder={`${translation.jobTitle}`}
         InputProps={{
           minLength: 3,
           endAdornment: (
@@ -91,7 +92,7 @@ export function SharedFields({
         value={startMonth}
         required
         error={startMonth?.length < 2 && startMonth.length !== 0}
-        label="תאריך תחילת עבודה"
+        label={`${translation.startDateWork}`}
         InputLabelProps={{
           shrink: true,
           style: {
@@ -112,6 +113,9 @@ export function SharedFields({
               )}
             </InputAdornment>
           ),
+          inputProps: {
+            placeholder: "",
+          },
         }}
         onChange={(e) => {
           setStartMonth(e.target.value);

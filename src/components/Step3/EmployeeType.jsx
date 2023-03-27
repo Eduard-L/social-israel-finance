@@ -7,7 +7,9 @@ import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 
 export function EmployeeType({}) {
   const { data, setData, setStep, step } = useContext(DataContext);
-  const { userName, userId, direction, employeeInfo } = data;
+  const { userName, userId, direction, employeeInfo, translation, isEnglish } =
+    data;
+
   const [type, setType] = useState(employeeInfo?.employmentStatus ?? "שכיר");
   const [lastUpdatedSalaryDate, setLastUpdatedSalaryDate] = useState(
     employeeInfo?.lastTimeUpdatedSalary || null
@@ -47,14 +49,13 @@ export function EmployeeType({}) {
     <>
       <div className="flex flex-col">
         <Typography className="text-center " style={{ fontWeight: "bold" }}>
-          ,שלום {userName}
+          ,{translation.hello} {userName}
         </Typography>
         <Typography className="text-center" style={{ direction: direction }}>
-          זהו טופס הדיווח החודשי, המשמש את "ספק האשראי " לצורך ניהול החזר המימון
-          החברתי במסגרת "שם התוכנית "
+          {translation.EmployeeTypeTextOne}
         </Typography>
         <Typography className="text-center mt-4">
-          : יש למלא את הטופס בהתאם למצבך התעסוקתי
+          {translation.EmployeeTypeTextTwo}
         </Typography>
         <div className="flex flex-row flex-wrap gap-2 items-center justify-center mt-4">
           <Button
@@ -73,7 +74,7 @@ export function EmployeeType({}) {
             }}
             onClick={() => handleChangeType(EMPLOYMENT_STATUS.Independent)}
           >
-            עצמאי
+            {translation.SelfEmployee}
           </Button>
           <Button
             className=" rounded-full flex flex-row self-start bg-blue-500   "
@@ -81,6 +82,8 @@ export function EmployeeType({}) {
             style={{
               direction: direction,
               width: 155,
+              fontSize: isEnglish ? "12px" : "",
+              height: isEnglish && "40px",
               backgroundColor:
                 type === EMPLOYMENT_STATUS.Employee ? "lightgrey" : "white",
               color: type === EMPLOYMENT_STATUS.Employee ? "grey" : "#4091df",
@@ -89,13 +92,15 @@ export function EmployeeType({}) {
             }}
             onClick={() => handleChangeType(EMPLOYMENT_STATUS.Employee)}
           >
-            שכיר
+            {translation.HiredEmployee}
           </Button>
           <Button
             className=" rounded-full flex flex-row self-start bg-blue-500   "
             variant="contained"
             style={{
               direction: direction,
+              fontSize: isEnglish ? "12px" : "",
+              height: isEnglish && "40px",
               width: 155,
               backgroundColor:
                 type === EMPLOYMENT_STATUS.Combined ? "lightgrey" : "white",
@@ -105,7 +110,7 @@ export function EmployeeType({}) {
             }}
             onClick={() => handleChangeType(EMPLOYMENT_STATUS.Combined)}
           >
-            שכיר/ה+עצמאי/ית
+            {translation.SelfPlusHired}
           </Button>
           <Button
             className=" rounded-full flex flex-row self-start bg-blue-700 w-2/5 "
@@ -126,7 +131,7 @@ export function EmployeeType({}) {
               setData({ ...data, employeeForm: null });
             }}
           >
-            לא מועסק/ת
+            {translation.Unemployed}
           </Button>
         </div>
       </div>
@@ -135,10 +140,10 @@ export function EmployeeType({}) {
         <Button
           className=" rounded-full bg-blue-500 flex flex-row self-start "
           variant="contained"
-          style={{ direction: direction }}
+          style={{ direction: "rtl" }}
           onClick={() => handleNextStep()}
         >
-          אפשר להמשיך
+          {translation.Continue}
           <KeyboardBackspaceIcon />
         </Button>
         {/* <Button
