@@ -113,8 +113,14 @@ export function IdStep({ onBtnClick, id, setId, method, setMethod }) {
             value="WhatsApp"
             control={<Radio />}
             label="WhatsApp"
+            disabled={isLoading}
           />
-          <FormControlLabel value="Sms" control={<Radio />} label="Sms" />
+          <FormControlLabel
+            disabled={isLoading}
+            value="Sms"
+            control={<Radio />}
+            label="Sms"
+          />
         </RadioGroup>
       </div>
       <Button
