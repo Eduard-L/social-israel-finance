@@ -127,7 +127,7 @@ export function FileUploader({}) {
             </Button>
           </label>
         </div>
-        <Typography
+        {/* <Typography
           className="text-center underline mt-6 "
           style={{ cursor: "pointer" }}
           onClick={() => {
@@ -135,7 +135,7 @@ export function FileUploader({}) {
           }}
         >
           {translation.helpUploading}
-        </Typography>
+        </Typography> */}
       </div>
       <div className="flex flex-row justify-between w-full">
         <Button

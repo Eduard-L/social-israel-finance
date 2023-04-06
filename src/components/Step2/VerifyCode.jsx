@@ -72,6 +72,8 @@ export function VerifyCode({ onSendCode, onSmsSend }) {
             direction: direction,
             marginTop: (code.length === 6 || code.length === 0) && "24px",
             cursor: "pointer",
+            color: isLoading && "lightgrey",
+            pointerEvents: isLoading && "none",
           }}
           onClick={() => {
             onSmsSend(true);
@@ -94,6 +96,7 @@ export function VerifyCode({ onSendCode, onSmsSend }) {
         <Button
           className=" rounded-full flex flex-row self-start bg-blue-500  "
           variant="contained"
+          disabled={isLoading}
           style={{
             direction: direction,
             transform: `rotate(180deg)`,

@@ -6,8 +6,15 @@ import { useState } from "react";
 import { api } from "../../api/Api";
 
 export function AdditionalInfo() {
-  const { data, step, setStep, setData, handleOpenMessage, setIsLoading } =
-    useContext(DataContext);
+  const {
+    data,
+    step,
+    setStep,
+    setData,
+    handleOpenMessage,
+    setIsLoading,
+    isLoading,
+  } = useContext(DataContext);
   const { direction, translation } = data;
   const [text, setText] = useState(data.additionText ?? "");
 
@@ -55,6 +62,7 @@ export function AdditionalInfo() {
           className=" rounded-full bg-blue-500 flex flex-row self-start "
           variant="contained"
           sx={{ direction: direction }}
+          disabled={isLoading}
           onClick={() => {
             setData(() => {
               return { ...data, additionText: text };
@@ -67,6 +75,7 @@ export function AdditionalInfo() {
         </Button>
         <Button
           className=" rounded-full flex flex-row self-start bg-blue-500  "
+          disabled={isLoading}
           variant="contained"
           style={{
             direction: direction,
