@@ -22,6 +22,7 @@ export function AdditionalInfo() {
     setIsLoading(true);
 
     try {
+      delete finalInfo.translation;
       const response = await api.handleSubmit(
         finalInfo,
         finalInfo.files,
@@ -68,7 +69,10 @@ export function AdditionalInfo() {
               return { ...data, additionText: text };
             });
             // alert("info is sent");
-            handleSendAllInfo({ ...data, additionText: text });
+            handleSendAllInfo({
+              ...data,
+              additionText: text,
+            });
           }}
         >
           {translation.SubmitReport}
