@@ -23,12 +23,13 @@ export const EMPLOYMENT_STATUS_OP_HE = {
     "עצמאי": "עצמאי",
     "שכיר": "שכיר",
     "לא מועסק/ת": " לא מועסק/ת",
-    "שכיר/ה + עצמאי/ת": "שכיר/ה + עצמאי/ת"
+    // "שכיר/ה + עצמאי/ת": "שכיר/ה + עצמאי/ת"
 }
 
 export const EMPLOYMENT_STATUS_OP_EN = {
     "עצמאי": "Self-employed",
     "שכיר": "Hired-Employed",
     "לא מועסק/ת": "Unemployed",
-    "שכיר/ה + עצמאי/ת": "Hired+Self employed"
+    //     "שכיר/ה + עצמאי/ת": "Hired+Self employed"
+    // }
 }

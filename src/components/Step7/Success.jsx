@@ -31,7 +31,7 @@ export function Success({}) {
         {translation.ifChangedStatus}
       </Typography>
       <Link href="mailto:sfi@sfi.com" underline="always">
-        matan@socialfinance.org.il
+        gabriela@kiedf.org
       </Link>
     </div>
   );

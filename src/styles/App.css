@@ -11,3 +11,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+.MuiInputLabel-asterisk {
+  display: none;
+}

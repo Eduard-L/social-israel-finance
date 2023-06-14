@@ -48,13 +48,19 @@ export function EmployeeType({}) {
   return (
     <>
       <div className="flex flex-col">
-        <Typography className="text-center " style={{ fontWeight: "bold" }}>
+        <Typography className="text-center" style={{ fontWeight: "bold" }}>
           ,{translation.hello} {userName}
         </Typography>
         <Typography className="text-center" style={{ direction: direction }}>
           {translation.EmployeeTypeTextOne}
         </Typography>
-        <Typography className="text-center mt-4">
+        <Typography className="text-center" style={{ direction: direction }}>
+          {translation.EmployeeTypeTextThree}
+        </Typography>
+        <Typography
+          className="text-center mt-4"
+          style={{ direction: direction }}
+        >
           {translation.EmployeeTypeTextTwo}
         </Typography>
         <div className="flex flex-row flex-wrap gap-2 items-center justify-center mt-4">

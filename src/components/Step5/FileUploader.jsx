@@ -6,51 +6,50 @@ import { Button, Typography } from "@mui/material";
 import { File } from "./File";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import { EMPLOYMENT_STATUS } from "../../Interface/EmploymentStatus";
+import { getPreviousMonthsString } from "../../helpers/handlers";
+import { TextField } from "@material-ui/core";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 
 export function FileUploader({}) {
   const { data, setStep, step, setData, handleOpenMessage } =
     useContext(DataContext);
   const { direction, employeeInfo, translation } = data;
+  const [passwordDoc, setPasswordDoc] = useState("");
+  const [isUploadBlockVisible, setIsUploadBlockVisible] = useState(false);
 
   const [files, setFiles] = useState(data?.files ?? []);
-  const lastTimeUpdatedSalary = employeeInfo?.lastTimeUpdatedSalary
-    ? employeeInfo?.lastTimeUpdatedSalary.substring(1, 3) +
-      employeeInfo?.lastTimeUpdatedSalary.substring(5, 7)
-    : "X";
 
-  const currentMonth = `${new Date().getMonth() + 1}.${new Date()
-    .getFullYear()
-    .toString()
-    .substring(2, 5)}`;
+  const currentMonth = getPreviousMonthsString();
 
   const handleTitle = () => {
-    if (employeeInfo?.employmentStatus === EMPLOYMENT_STATUS.Not_Employed) {
-      return `${translation.uploadPayCheckOne}`;
-    } else if (
-      employeeInfo?.employmentStatus === EMPLOYMENT_STATUS.Employee ||
-      employeeInfo?.employmentStatus === EMPLOYMENT_STATUS.Combined
-    ) {
-      return ` ${translation.uploadPayCheckTwo} ${lastTimeUpdatedSalary} - ${currentMonth}`;
-    } else if (
-      employeeInfo?.employmentStatus === EMPLOYMENT_STATUS.Independent
-    ) {
-      return ` ${translation.uploadPayCheckTwo} ${lastTimeUpdatedSalary} - ${currentMonth}`;
+    switch (employeeInfo?.employmentStatus) {
+      case EMPLOYMENT_STATUS.Not_Employed:
+        return `${translation.uploadPayCheckOne}`;
+        break;
+      case EMPLOYMENT_STATUS.Employee:
+        return ` ${translation.uploadPayCheckTwo} - ${currentMonth}`;
+        break;
+      case EMPLOYMENT_STATUS.Independent:
+        break;
+      case EMPLOYMENT_STATUS.Combined:
+        return ` ${translation.uploadPayCheckTwo} - ${currentMonth}`;
+        break;
     }
   };
 
   const handleNextStep = () => {
-    if (files.length === 0) {
-      handleOpenMessage(
-        "please upload relevant files - יש לעלות מסמכים נדרשים להמשך",
-        "warning"
-      );
-      return;
-    }
+    const validation = handleUserDocsCounterValidation(files.length);
+    if (!validation) return;
+
     setData({ ...data, files: files });
     setStep(step + 1);
   };
 
   const handleChange = async (e) => {
+    if (!passwordDoc) {
+      handleOpenMessage(`נא הזן סיסמא או הזן 0`, "error");
+      return;
+    }
     if (!e.target.files[0]) return;
     let counter = e.target.files[0].size;
     files.forEach((f) => {
@@ -64,8 +63,41 @@ export function FileUploader({}) {
     const f = {
       file: await convertBase64(e.target.files[0]),
       id: e.target.files[0].name,
+      passwordDoc: passwordDoc,
     };
     setFiles([...files, f]);
+    setIsUploadBlockVisible(false);
+    setPasswordDoc("");
+  };
+
+  const handleUserDocsCounterValidation = (filesCounter) => {
+    switch (employeeInfo?.employmentStatus) {
+      case EMPLOYMENT_STATUS.Not_Employed:
+        if (filesCounter < 1) {
+          handleOpenMessage(" יש לעלות מסמך אחד לפחות", "error");
+          return false;
+        }
+        break;
+      case EMPLOYMENT_STATUS.Employee:
+        if (filesCounter < 3) {
+          handleOpenMessage("יש לעלות את כל תלושי השכר הרשומים למעלה", "error");
+          return false;
+        }
+        break;
+      case EMPLOYMENT_STATUS.Independent:
+        if (filesCounter < 1) {
+          handleOpenMessage(" יש לעלות מסמך אחד לפחות", "error");
+          return false;
+        }
+        break;
+      case EMPLOYMENT_STATUS.Combined:
+        if (filesCounter < 4) {
+          handleOpenMessage("יש לעלות את כל המסמכים הרשומים למעלה", "error");
+          return false;
+        }
+        break;
+    }
+    return true;
   };
 
   const handleDeleteFile = (id) => {
@@ -89,11 +121,49 @@ export function FileUploader({}) {
   return (
     <div className="flex flex-col items-center justify-between w-full h-full">
       <div className="flex flex-col items-center w-full">
-        <Typography className="text-center " style={{ direction: direction }}>
+        <Typography
+          className="text-start w-full px-4 "
+          style={{ direction: direction, fontSize: "16px" }}
+        >
           {handleTitle()}
         </Typography>
 
-        <div className="mt-6 w-full">
+        {employeeInfo?.employmentStatus === EMPLOYMENT_STATUS.Combined ||
+        employeeInfo?.employmentStatus === EMPLOYMENT_STATUS.Independent ? (
+          <>
+            <Typography
+              className="text-center mt-4"
+              style={{ direction: direction, fontSize: "16px" }}
+            >
+              לעצמאי יש לעלות את <b>אחד</b> מהמסכים הבאים:
+            </Typography>
+            <div className="px-5 mt-2">
+              <Typography
+                className="text-start w-full "
+                style={{ direction: direction, fontSize: "14px" }}
+              >
+                1. אישור מרואה חשבון על ההכנסות בחודש זה
+              </Typography>
+
+              <Typography
+                className="text-start w-full"
+                style={{ direction: direction, fontSize: "14px" }}
+              >
+                2. כל הקבלות ו/חשבוניות מס/קבלות שהפקת בחודש זה.
+              </Typography>
+              <Typography
+                className="text-start w-full"
+                style={{ direction: direction, fontSize: "14px" }}
+              >
+                3. דו"ח סיכום חודש ממערכת חשבונית ירוקה.
+              </Typography>
+            </div>
+          </>
+        ) : (
+          ""
+        )}
+
+        <div className="mt-6 mb-6 w-full">
           {files.map((f) => (
             <File
               key={f.id}
@@ -104,7 +174,42 @@ export function FileUploader({}) {
           ))}
         </div>
 
-        <div className="mt-6">
+        {isUploadBlockVisible ? (
+          ""
+        ) : (
+          <Button
+            variant="outlined"
+            color="primary"
+            component="span"
+            className="rounded-full "
+            style={{
+              width: 155,
+            }}
+            onClick={() => setIsUploadBlockVisible(true)}
+          >
+            <AddCircleOutlineIcon />
+          </Button>
+        )}
+
+        <div
+          className={` flex flex-col justify-center w-full ${
+            isUploadBlockVisible ? "" : "hidden"
+          }`}
+        >
+          <TextField
+            id="standard-basic"
+            variant="standard"
+            type="number"
+            style={{ direction: direction }}
+            required
+            className="w-full"
+            inputProps={{ minLength: 1 }}
+            value={passwordDoc}
+            error=""
+            helperText=""
+            placeholder="נא הזן סיסמא למסמך במידה וקיימת אחרת הזן 0"
+            onChange={(e) => setPasswordDoc(e.target.value)}
+          />
           <input
             type="file"
             accept="*"
@@ -112,12 +217,15 @@ export function FileUploader({}) {
             id="contained-button-file"
             onChange={handleChange}
           />
-          <label htmlFor="contained-button-file">
+          <label
+            htmlFor="contained-button-file"
+            className="flex justify-center"
+          >
             <Button
               variant="outlined"
               color="primary"
               component="span"
-              className="rounded-full "
+              className="rounded-full mt-4"
               style={{
                 width: 155,
               }}
@@ -127,15 +235,6 @@ export function FileUploader({}) {
             </Button>
           </label>
         </div>
-        {/* <Typography
-          className="text-center underline mt-6 "
-          style={{ cursor: "pointer" }}
-          onClick={() => {
-            handleOpenMessage("error", "error");
-          }}
-        >
-          {translation.helpUploading}
-        </Typography> */}
       </div>
       <div className="flex flex-row justify-between w-full">
         <Button

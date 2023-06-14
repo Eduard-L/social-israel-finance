@@ -102,7 +102,11 @@ export function TypeForm({}) {
               color: "#4091df",
             }}
           >
-            {status[`${employeeInfo?.employmentStatus}`]}
+            {status[`${employeeInfo?.employmentStatus}`]
+              ? status[`${employeeInfo?.employmentStatus}`]
+              : isFinishedFisrtForm
+              ? status[`עצמאי`]
+              : status[`שכיר`]}
           </Typography>
         </div>
 

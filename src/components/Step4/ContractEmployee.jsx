@@ -62,6 +62,7 @@ export function ContractEmployee({ employeeForm, setEmployeeForm }) {
       <SharedFields
         employeeForm={employeeForm}
         setEmployeeForm={setEmployeeForm}
+        isSelfEmployee={false}
       />
 
       <TextField
@@ -104,6 +105,15 @@ export function ContractEmployee({ employeeForm, setEmployeeForm }) {
         className="mt-4"
         required
         value={brutoSalary}
+        label={`* ${translation.grossSalary}`}
+        InputLabelProps={{
+          shrink: true,
+          style: {
+            color: "red",
+            right: -105,
+            fontWeight: "bold",
+          },
+        }}
         inputProps={{ minLength: 3 }}
         error={brutoSalary?.length <= 2 && brutoSalary.length > 0}
         helperText={

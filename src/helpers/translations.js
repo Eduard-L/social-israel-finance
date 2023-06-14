@@ -53,15 +53,17 @@ export const translationsObj = {
         personalNum: "מס אישי",
         sentTo: ":הודעת טקסט נשלחה אלייך למס",
         EnterVerificationCode: "יש להכניס את מס' האימות האישי שקיבלת.",
-        EmployeeTypeTextOne: `זהו טופס הדיווח החודשי, המשמש את "ספק האשראי" לצורך ניהול החזר המימון החברתי במסגרת" שם התוכנית " `,
-        EmployeeTypeTextTwo: ": יש למלא את הטופס בהתאם למצבך התעסוקתי",
-        SelfEmployee: "עצמאי",
-        HiredEmployee: "שכיר",
+        EmployeeTypeTextOne: `לפניך מערכת לעדכון המצב התעסוקתי שלך במסגרת הזנק הגליל.`,
+        EmployeeTypeTextTwo: "האם אתה ?",
+        EmployeeTypeTextThree: "הפרטים ישמשו את קרנות קורת לניהול החזר הלוואה.",
+        SelfEmployee: "עצמאי/ת",
+        HiredEmployee: "שכיר/ה",
         SelfPlusHired: "שכיר/ה+עצמאי/ית",
-        Unemployed: "לא מועסק/ת",
+        Unemployed: "לא עובד/ת",
         Continue: "אפשר להמשיך",
         fillJobTitle: "נא למלא שם תפקיד , מינימום 3 תווים",
-        jobTitle: "תפקיד",
+        jobTitle: "עיסוק",
+        selfEmployeeJobTitle: ' הכנסות ברוטו  מהחודש האחרון - ללא מע"מ',
         startDateWork: "תאריך תחילת עבודה",
         salaryLastMonth: "הכנסות עבודה מחודש קודם",
         pleaseFillGrossSalaryLastMonth: "נא מלא הכנסות מחדוש קודם, מינימום 3 תווים",
@@ -72,8 +74,8 @@ export const translationsObj = {
         grossSalary: "שכר ברוטו",
         pleaseFillGrossSalary: "הזן שכר ברוטות, לפחות 3 תווים",
         percentError: "הזן ערך בין 0 ל 100",
-        uploadPayCheckOne: "יש לעלות תלושי שכר מביטוח לאומי",
-        uploadPayCheckTwo: " יש לעלות תלושי שכר עבור חודשים",
+        uploadPayCheckOne: " יש לעלות אישור על מעמד לא עובד מביטוח לאומי.",
+        uploadPayCheckTwo: "  בשביל עובד שכיר יש לעלות תלושי שכר עבור חודשים",
         uploadFilesValidation: "לא ניתן לעלות קבצים הגדולים מ 6 מגה-בייט",
         helpUploading: "לעזרה בהעלאת קבצים",
         Notes: "הערות נוספות",
@@ -113,6 +115,10 @@ export const QANDA_EN = [
     {
         question: 'איך אני צריך לדווח את הדיווח השנתי?',
         answer: 'שכיר נדרש לאישור תקופת ביטוח מעסיקים. עצמאי שומה של השנה הקודמת או דוח רווח והפסד'
+    },
+    {
+        question: 'לשאלות ניתן לפנות במייל ל- gabriela@kiedf.org',
+        answer: ''
     }
 ]
 
@@ -144,5 +150,9 @@ export const QANDA_HE = [
     {
         question: 'איך אני צריך לדווח את הדיווח השנתי?',
         answer: 'שכיר נדרש לאישור תקופת ביטוח מעסיקים. עצמאי שומה של השנה הקודמת או דוח רווח והפסד'
+    },
+    {
+        question: 'לשאלות ניתן לפנות במייל ל- gabriela@kiedf.org',
+        answer: ''
     }
 ]

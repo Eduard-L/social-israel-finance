@@ -20,6 +20,7 @@ export function SharedFields({
     startMonthSelfEmployee,
     startMonthContractEmployee,
   } = employeeForm;
+  console.log(isSelfEmployee);
 
   const [jobTitle, setJobTitle] = useState(() => {
     if (isSelfEmployee && jobTitleSelfEmployee) {
@@ -64,7 +65,11 @@ export function SharedFields({
           jobTitle?.length < 3 &&
           `${translation.fillJobTitle}`
         }
-        placeholder={`${translation.jobTitle}`}
+        placeholder={
+          isSelfEmployee
+            ? translation.selfEmployeeJobTitle
+            : translation.jobTitle
+        }
         InputProps={{
           minLength: 3,
           endAdornment: (
@@ -92,7 +97,7 @@ export function SharedFields({
         value={startMonth}
         required
         error={startMonth?.length < 2 && startMonth.length !== 0}
-        label={`${translation.startDateWork}`}
+        label={`* ${translation.startDateWork}`}
         InputLabelProps={{
           shrink: true,
           style: {
