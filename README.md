@@ -2,4 +2,4 @@
 
 # upload to s3
 
-``` aws s3 cp ./dist s3://sfi-form --recursive ```
+``` aws s3 cp ./dist s3://socialfinance --recursive ```
