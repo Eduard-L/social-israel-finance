@@ -7,6 +7,9 @@ import { File } from "./File";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import { EMPLOYMENT_STATUS } from "../../Interface/EmploymentStatus";
 import { getPreviousMonthsString } from "../../helpers/handlers";
+import { v4 as uuidv4 } from "uuid";
+import instructionsFile from "../../assets/Instructions-Bituah-leumi.pdf";
+
 import { TextField } from "@material-ui/core";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 
@@ -21,10 +24,17 @@ export function FileUploader({}) {
 
   const currentMonth = getPreviousMonthsString();
 
+  const handleDownloadFile = () => {
+    const link = document.createElement("a");
+    link.href = instructionsFile;
+    link.download = "Instructions-Bituah-leumi.pdf";
+    link.click();
+  };
+
   const handleTitle = () => {
     switch (employeeInfo?.employmentStatus) {
       case EMPLOYMENT_STATUS.Not_Employed:
-        return `${translation.uploadPayCheckOne}`;
+        return `${translation.uploadPayCheckOne}  - ${currentMonth}`;
         break;
       case EMPLOYMENT_STATUS.Employee:
         return ` ${translation.uploadPayCheckTwo} - ${currentMonth}`;
@@ -73,7 +83,7 @@ export function FileUploader({}) {
   const handleUserDocsCounterValidation = (filesCounter) => {
     switch (employeeInfo?.employmentStatus) {
       case EMPLOYMENT_STATUS.Not_Employed:
-        if (filesCounter < 1) {
+        if (filesCounter < 3) {
           handleOpenMessage(" יש לעלות מסמך אחד לפחות", "error");
           return false;
         }
@@ -85,13 +95,13 @@ export function FileUploader({}) {
         }
         break;
       case EMPLOYMENT_STATUS.Independent:
-        if (filesCounter < 1) {
+        if (filesCounter < 3) {
           handleOpenMessage(" יש לעלות מסמך אחד לפחות", "error");
           return false;
         }
         break;
       case EMPLOYMENT_STATUS.Combined:
-        if (filesCounter < 4) {
+        if (filesCounter < 6) {
           handleOpenMessage("יש לעלות את כל המסמכים הרשומים למעלה", "error");
           return false;
         }
@@ -120,9 +130,12 @@ export function FileUploader({}) {
 
   return (
     <div className="flex flex-col items-center justify-between w-full h-full">
-      <div className="flex flex-col items-center w-full">
+      <div
+        className="flex flex-col items-center w-full"
+        style={{ maxHeight: "85%", overflowY: "auto" }}
+      >
         <Typography
-          className="text-start w-full px-4 "
+          className="text-start w-full  "
           style={{ direction: direction, fontSize: "16px" }}
         >
           {handleTitle()}
@@ -130,14 +143,15 @@ export function FileUploader({}) {
 
         {employeeInfo?.employmentStatus === EMPLOYMENT_STATUS.Combined ||
         employeeInfo?.employmentStatus === EMPLOYMENT_STATUS.Independent ? (
-          <>
+          <div className="">
             <Typography
-              className="text-center mt-4"
+              className=" mt-4"
               style={{ direction: direction, fontSize: "16px" }}
             >
-              לעצמאי יש לעלות את <b>אחד</b> מהמסכים הבאים:
+              עצמאי יקר יש לעלות את <b>אחד</b> מהמסמכים הבאים עבור חודשים-
+              {currentMonth}
             </Typography>
-            <div className="px-5 mt-2">
+            <div className=" mt-2">
               <Typography
                 className="text-start w-full "
                 style={{ direction: direction, fontSize: "14px" }}
@@ -158,7 +172,24 @@ export function FileUploader({}) {
                 3. דו"ח סיכום חודש ממערכת חשבונית ירוקה.
               </Typography>
             </div>
-          </>
+          </div>
+        ) : (
+          ""
+        )}
+
+        {employeeInfo?.employmentStatus === EMPLOYMENT_STATUS.Not_Employed ? (
+          <span
+            className="text-center underline font-bold text-sm mt-4"
+            style={{
+              direction: direction,
+              cursor: "pointer",
+            }}
+            onClick={() => {
+              handleDownloadFile();
+            }}
+          >
+            הורדת מדריך
+          </span>
         ) : (
           ""
         )}
@@ -166,7 +197,7 @@ export function FileUploader({}) {
         <div className="mt-6 mb-6 w-full">
           {files.map((f) => (
             <File
-              key={f.id}
+              key={uuidv4()}
               fileName={f.id}
               onDelete={handleDeleteFile}
               id={f.id}
@@ -198,12 +229,17 @@ export function FileUploader({}) {
         >
           <TextField
             id="standard-basic"
-            variant="standard"
+            variant="outlined"
             type="number"
             style={{ direction: direction }}
             required
             className="w-full"
             inputProps={{ minLength: 1 }}
+            InputProps={{
+              inputProps: {
+                style: { padding: "10px", fontSize: "15px" }, // Adjust the padding value according to your needs
+              },
+            }}
             value={passwordDoc}
             error=""
             helperText=""
@@ -241,7 +277,7 @@ export function FileUploader({}) {
           className=" rounded-full bg-blue-500 flex flex-row self-start "
           variant="contained"
           style={{ direction: "rtl" }}
-          disabled={files.length === 0}
+          disabled={files.length < 3}
           onClick={() => handleNextStep()}
         >
           {translation.Continue}

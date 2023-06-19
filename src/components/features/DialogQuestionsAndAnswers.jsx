@@ -18,7 +18,7 @@ export default function DialogQuestionsAndAnswers({
       </Button> */}
       <Dialog
         open={open}
-        style={{ direction: direction }}
+        style={{ direction: "rtl" }}
         onClose={handleClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"

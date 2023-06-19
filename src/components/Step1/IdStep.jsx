@@ -74,7 +74,6 @@ export function IdStep({ onBtnClick, id, setId, method, setMethod }) {
 
         <TextField
           id="standard-basic"
-          variant="standard"
           className="mt-2"
           type="text"
           value={id}
@@ -85,6 +84,9 @@ export function IdStep({ onBtnClick, id, setId, method, setMethod }) {
             `${translation.validationIdError}`
           }
           InputProps={{
+            inputProps: {
+              style: { padding: "10px" }, // Adjust the padding value according to your needs
+            },
             endAdornment: (
               <InputAdornment position="end">
                 {id.length === 9 ? (

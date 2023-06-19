@@ -15,30 +15,30 @@ export function Steper({ onNextStep, onPreStep, step }) {
       sx={{ width: 320, justifyContent: "center" }}
       position="static"
       activeStep={step}
-      // nextButton={
-      //   <Button
-      //     size="small"
-      //     onClick={onNextStep}
-      //     disabled={step === maxSteps - 1}
-      //   >
-      //     Next
-      //     {theme.direction === "rtl" ? (
-      //       <KeyboardArrowLeft />
-      //     ) : (
-      //       <KeyboardArrowRight />
-      //     )}
-      //   </Button>
-      // }
-      // backButton={
-      //   <Button size="small" onClick={onPreStep} disabled={step === 0}>
-      //     {theme.direction === "rtl" ? (
-      //       <KeyboardArrowRight />
-      //     ) : (
-      //       <KeyboardArrowLeft />
-      //     )}
-      //     Back
-      //   </Button>
-      // }
+      nextButton={
+        <Button
+          size="small"
+          onClick={onNextStep}
+          disabled={step === maxSteps - 1}
+        >
+          Next
+          {theme.direction === "rtl" ? (
+            <KeyboardArrowLeft />
+          ) : (
+            <KeyboardArrowRight />
+          )}
+        </Button>
+      }
+      backButton={
+        <Button size="small" onClick={onPreStep} disabled={step === 0}>
+          {theme.direction === "rtl" ? (
+            <KeyboardArrowRight />
+          ) : (
+            <KeyboardArrowLeft />
+          )}
+          Back
+        </Button>
+      }
     />
   );
 }

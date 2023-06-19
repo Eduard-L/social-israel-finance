@@ -65,11 +65,7 @@ export function SharedFields({
           jobTitle?.length < 3 &&
           `${translation.fillJobTitle}`
         }
-        placeholder={
-          isSelfEmployee
-            ? translation.selfEmployeeJobTitle
-            : translation.jobTitle
-        }
+        placeholder={translation.jobTitle}
         InputProps={{
           minLength: 3,
           endAdornment: (
