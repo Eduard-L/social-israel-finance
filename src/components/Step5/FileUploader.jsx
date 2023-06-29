@@ -5,10 +5,13 @@ import UploadIcon from "@mui/icons-material/Upload";
 import { Button, Typography } from "@mui/material";
 import { File } from "./File";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
-import { EMPLOYMENT_STATUS } from "../../Interface/EmploymentStatus";
+import {
+  EMPLOYMENT_STATUS,
+  EMPLOYMENT_STATUS_OP_HE,
+  EMPLOYMENT_STATUS_OP_EN,
+} from "../../Interface/EmploymentStatus";
 import { getPreviousMonthsString } from "../../helpers/handlers";
 import { v4 as uuidv4 } from "uuid";
-import instructionsFile from "../../assets/Instructions-Bituah-leumi.pdf";
 
 import { TextField } from "@material-ui/core";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
@@ -16,13 +19,15 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 export function FileUploader({}) {
   const { data, setStep, step, setData, handleOpenMessage } =
     useContext(DataContext);
-  const { direction, employeeInfo, translation } = data;
+  const { direction, employeeInfo, translation, userName, isEnglish } = data;
   const [passwordDoc, setPasswordDoc] = useState("");
   const [isUploadBlockVisible, setIsUploadBlockVisible] = useState(false);
 
   const [files, setFiles] = useState(data?.files ?? []);
 
   const currentMonth = getPreviousMonthsString();
+
+  const status = isEnglish ? EMPLOYMENT_STATUS_OP_EN : EMPLOYMENT_STATUS_OP_HE;
 
   const handleDownloadFile = () => {
     const link = document.createElement("a");
@@ -134,6 +139,28 @@ export function FileUploader({}) {
         className="flex flex-col items-center w-full"
         style={{ maxHeight: "85%", overflowY: "auto" }}
       >
+        <div
+          className="flex flex-row w-full"
+          style={{ fontWeight: "bold", direction: direction }}
+        >
+          <Typography
+            className="text-start ml-1 "
+            style={{ fontWeight: "bold", direction: direction }}
+          >
+            {userName} |
+          </Typography>
+          <Typography
+            className="text-start"
+            style={{
+              fontWeight: "bold",
+              direction: direction,
+              color: "#4091df",
+            }}
+          >
+            {status[`${employeeInfo?.employmentStatus}`]}
+          </Typography>
+        </div>
+
         <Typography
           className="text-start w-full  "
           style={{ direction: direction, fontSize: "16px" }}
@@ -148,7 +175,7 @@ export function FileUploader({}) {
               className=" mt-4"
               style={{ direction: direction, fontSize: "16px" }}
             >
-              עצמאי יקר יש לעלות את <b>אחד</b> מהמסמכים הבאים עבור חודשים-
+              עצמאי/ת נא לעלות את <b>אחד</b> מהמסמכים הבאים עבור חודשים-
               {currentMonth}
             </Typography>
             <div className=" mt-2">
@@ -156,14 +183,14 @@ export function FileUploader({}) {
                 className="text-start w-full "
                 style={{ direction: direction, fontSize: "14px" }}
               >
-                1. אישור מרואה חשבון על ההכנסות בחודש זה
+                1.אישור חתום מרואה חשבון על הכנסות ברבעון האחרון
               </Typography>
 
               <Typography
                 className="text-start w-full"
                 style={{ direction: direction, fontSize: "14px" }}
               >
-                2. כל הקבלות ו/חשבוניות מס/קבלות שהפקת בחודש זה.
+                2.דוח הכנסות של הרבעון האחרון ממערכת חשבונית ירוקה
               </Typography>
               <Typography
                 className="text-start w-full"
@@ -188,7 +215,7 @@ export function FileUploader({}) {
               handleDownloadFile();
             }}
           >
-            הורדת מדריך
+            מדריך להורדת אישור מביטוח לאומי
           </span>
         ) : (
           ""
@@ -233,17 +260,18 @@ export function FileUploader({}) {
             type="number"
             style={{ direction: direction }}
             required
-            className="w-full"
+            className="w-full input_type_password"
             inputProps={{ minLength: 1 }}
             InputProps={{
               inputProps: {
                 style: { padding: "10px", fontSize: "15px" }, // Adjust the padding value according to your needs
+                className: "input_type_password",
               },
             }}
             value={passwordDoc}
             error=""
             helperText=""
-            placeholder="נא הזן סיסמא למסמך במידה וקיימת אחרת הזן 0"
+            placeholder="נא להזין סיסמא לתלוש. אם אין להזין 0"
             onChange={(e) => setPasswordDoc(e.target.value)}
           />
           <input

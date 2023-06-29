@@ -102,13 +102,25 @@ export function TypeForm({}) {
               color: "#4091df",
             }}
           >
-            {status[`${employeeInfo?.employmentStatus}`]
-              ? status[`${employeeInfo?.employmentStatus}`]
-              : isFinishedFisrtForm
-              ? status[`עצמאי`]
-              : status[`שכיר`]}
+            {status[`${employeeInfo?.employmentStatus}`]}
           </Typography>
         </div>
+
+        {employeeInfo?.employmentStatus === EMPLOYMENT_STATUS.Combined ? (
+          <Typography
+            className="text-start"
+            style={{
+              fontSize: "14px",
+              fontWeight: "bold",
+              direction: direction,
+              color: "#4091df",
+            }}
+          >
+            {isFinishedFisrtForm ? status["עצמאי"] : status["שכיר"]}
+          </Typography>
+        ) : (
+          ""
+        )}
 
         {employeeInfo.employmentStatus === EMPLOYMENT_STATUS.Independent ? (
           <SelfEmployee

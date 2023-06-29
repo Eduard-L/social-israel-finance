@@ -43,17 +43,17 @@ export const translationsObj = {
     },
     he: {
         hello: "שלום",
-        pageOneTitle: "לקבל קוד אימות אישי לצורך כניסה לטופס הדיווח החודשי, יש להכניס מספר תעודת זהות ולבחור באפשרות השליחה הרצויה:",
+        pageOneTitle: "לקבלת קוד אימות אישי לצורך כניסה לטופס הדיווח החודשי, יש להכניס מספר תעודת זהות ולבחור באפשרות השליחה הרצויה:",
         validationIdError: "נא מלא תעודת זהות תקינה",
-        getPersonalVerCode: "קבלת קוד אימות אישי",
+        getPersonalVerCode: "לקבלת קוד אימות אישי",
         idCheckError: "משהו השתבש , הנה בדוק את תעודת הזהות או את החיבור",
         tryAgain: "משהו השתבש, הנה נסה שנית או בדוק חיבור",
         enterToForm: "כניסה לטופס",
         sendAgain: "לא קיבלתי שלחו שוב",
-        personalNum: "מס אישי",
+        personalNum: "קוד אימות",
         sentTo: ":הודעת טקסט נשלחה אלייך למס",
-        EnterVerificationCode: "יש להכניס את מס' האימות האישי שקיבלת.",
-        EmployeeTypeTextOne: `לפניך מערכת לעדכון המצב התעסוקתי שלך במסגרת התוכנית הזנק הגליל.`,
+        EnterVerificationCode: "יש להכניס את קוד האימות האישי שקיבלת.",
+        EmployeeTypeTextOne: `לפניך מערכת לעדכון המצב התעסוקתי שלך במסגרת תוכנית הזנק הגליל.`,
         EmployeeTypeTextTwo: "האם את/ה ?",
         EmployeeTypeTextThree: "הפרטים ישמשו את קרנות קורת לניהול החזר הלוואה.",
         SelfEmployee: "עצמאי/ת",
@@ -75,14 +75,15 @@ export const translationsObj = {
         pleaseFillGrossSalary: "הזן שכר ברוטות, לפחות 3 תווים",
         percentError: "הזן ערך בין 0 ל 100",
         uploadPayCheckOne: " יש לעלות אישור על מעמד לא עובד מביטוח לאומי עבור חודשים הבאים:",
-        uploadPayCheckTwo: " שכיר יקר יש לעלות תלושי שכר עבור חודשים",
+        uploadPayCheckTwo: "שכיר/ה נא לעלות 3 תלושי שכר עבור חודשים",
         uploadFilesValidation: "לא ניתן לעלות קבצים הגדולים מ 6 מגה-בייט",
         helpUploading: "לעזרה בהעלאת קבצים",
         Notes: "הערות נוספות",
         SubmitReport: "שליחת דיווח",
         sentSuccesfully: "הדיווח נשלח בהצלחה",
         ifChangedStatus: " במידה ויש שינויים במצבך התעסוקתי, יש לעדכן אותנו בהקדם",
-        QandA: "שאלות ותשובות"
+        QandA: "שאלות ותשובות",
+        selfEmployeeGrossSalary: "הכנסה ברבעון האחרון"
 
     }
 }

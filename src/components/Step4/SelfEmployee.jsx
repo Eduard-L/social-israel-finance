@@ -39,7 +39,7 @@ export function SelfEmployee({ employeeForm, setEmployeeForm }) {
           `${translation.pleaseFillGrossSalaryLastMonth}`
         }
         required
-        placeholder={`${translation.grossSalary}`}
+        placeholder={`${translation.selfEmployeeGrossSalary}`}
         InputProps={{
           endAdornment: (
             <InputAdornment position="end">

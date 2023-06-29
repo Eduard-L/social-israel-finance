@@ -10,8 +10,20 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  border-radius: 8px !important;
 }
 
 .MuiInputLabel-asterisk {
   display: none;
+}
+.input_type_password::placeholder {
+  color: black !important;
+  opacity: 1;
+  font-weight: bold;
+}
+.input_type_password {
+  border-radius: 8px;
+}
+.css-o9k5xi-MuiInputBase-root-MuiOutlinedInput-root {
+  border-radius: 8px;
 }

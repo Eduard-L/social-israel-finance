@@ -39,7 +39,7 @@ export function handleCheckValidation(data, type, isFinishedFirst) {
 
 export function getPreviousMonthsString() {
     const currentDate = new Date();
-    const currentMonth = currentDate.getMonth() + 1; // Adding 1 because month index starts from 0
+    const currentMonth = currentDate.getMonth(); // Adding 1 because month index starts from 0
     const currentYear = currentDate.getFullYear().toString().slice(-2); // Extracting last two digits of the year
 
     let previousMonth1 = currentMonth - 1;
