@@ -10,7 +10,11 @@ import {
   EMPLOYMENT_STATUS_OP_HE,
   EMPLOYMENT_STATUS_OP_EN,
 } from "../../Interface/EmploymentStatus";
-import { getPreviousMonthsString } from "../../helpers/handlers";
+import {
+  getPreviousMonthsString,
+  handleTitleForUploader,
+  handleUserDocsCounterValidation,
+} from "../../helpers/handlers";
 import { v4 as uuidv4 } from "uuid";
 
 import { TextField } from "@material-ui/core";
@@ -24,6 +28,12 @@ export function FileUploader({}) {
   const [isUploadBlockVisible, setIsUploadBlockVisible] = useState(false);
 
   const [files, setFiles] = useState(data?.files ?? []);
+  const isBtnDisabled = handleUserDocsCounterValidation(
+    files.length,
+    employeeInfo?.employmentStatus,
+    handleOpenMessage,
+    true
+  );
 
   const currentMonth = getPreviousMonthsString();
 
@@ -36,24 +46,12 @@ export function FileUploader({}) {
     link.click();
   };
 
-  const handleTitle = () => {
-    switch (employeeInfo?.employmentStatus) {
-      case EMPLOYMENT_STATUS.Not_Employed:
-        return `${translation.uploadPayCheckOne}  - ${currentMonth}`;
-        break;
-      case EMPLOYMENT_STATUS.Employee:
-        return ` ${translation.uploadPayCheckTwo} - ${currentMonth}`;
-        break;
-      case EMPLOYMENT_STATUS.Independent:
-        break;
-      case EMPLOYMENT_STATUS.Combined:
-        return ` ${translation.uploadPayCheckTwo} - ${currentMonth}`;
-        break;
-    }
-  };
-
   const handleNextStep = () => {
-    const validation = handleUserDocsCounterValidation(files.length);
+    const validation = handleUserDocsCounterValidation(
+      files.length,
+      employeeInfo?.employmentStatus,
+      handleOpenMessage
+    );
     if (!validation) return;
 
     setData({ ...data, files: files });
@@ -83,36 +81,6 @@ export function FileUploader({}) {
     setFiles([...files, f]);
     setIsUploadBlockVisible(false);
     setPasswordDoc("");
-  };
-
-  const handleUserDocsCounterValidation = (filesCounter) => {
-    switch (employeeInfo?.employmentStatus) {
-      case EMPLOYMENT_STATUS.Not_Employed:
-        if (filesCounter < 3) {
-          handleOpenMessage(" יש לעלות מסמך אחד לפחות", "error");
-          return false;
-        }
-        break;
-      case EMPLOYMENT_STATUS.Employee:
-        if (filesCounter < 3) {
-          handleOpenMessage("יש לעלות את כל תלושי השכר הרשומים למעלה", "error");
-          return false;
-        }
-        break;
-      case EMPLOYMENT_STATUS.Independent:
-        if (filesCounter < 3) {
-          handleOpenMessage(" יש לעלות מסמך אחד לפחות", "error");
-          return false;
-        }
-        break;
-      case EMPLOYMENT_STATUS.Combined:
-        if (filesCounter < 6) {
-          handleOpenMessage("יש לעלות את כל המסמכים הרשומים למעלה", "error");
-          return false;
-        }
-        break;
-    }
-    return true;
   };
 
   const handleDeleteFile = (id) => {
@@ -165,7 +133,7 @@ export function FileUploader({}) {
           className="text-start w-full  "
           style={{ direction: direction, fontSize: "16px" }}
         >
-          {handleTitle()}
+          {handleTitleForUploader(employeeInfo?.employmentStatus, translation)}
         </Typography>
 
         {employeeInfo?.employmentStatus === EMPLOYMENT_STATUS.Combined ||
@@ -305,7 +273,7 @@ export function FileUploader({}) {
           className=" rounded-full bg-blue-500 flex flex-row self-start "
           variant="contained"
           style={{ direction: "rtl" }}
-          disabled={files.length < 3}
+          disabled={isBtnDisabled}
           onClick={() => handleNextStep()}
         >
           {translation.Continue}

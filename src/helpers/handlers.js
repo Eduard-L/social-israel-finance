@@ -72,3 +72,63 @@ export function getPreviousMonthsString() {
 }
 
 
+export const handleTitleForUploader = (employeeStatus, translation) => {
+    switch (employeeStatus) {
+        case EMPLOYMENT_STATUS.Not_Employed:
+            return `${translation.uploadPayCheckOne}  - ${getPreviousMonthsString()}`;
+            break;
+        case EMPLOYMENT_STATUS.Employee:
+            return ` ${translation.uploadPayCheckTwo} - ${getPreviousMonthsString()}`;
+            break;
+        case EMPLOYMENT_STATUS.Independent:
+            break;
+        case EMPLOYMENT_STATUS.Combined:
+            return ` ${translation.uploadPayCheckTwo} - ${getPreviousMonthsString()}`;
+            break;
+    }
+};
+
+export const handleUserDocsCounterValidation = (filesCounter, employmentStatus, handleOpenMessage, isForDisable) => {
+
+    switch (employmentStatus) {
+        case EMPLOYMENT_STATUS.Not_Employed:
+            if (filesCounter < 1 && !isForDisable) {
+                handleOpenMessage(" יש לעלות מסמך אחד לפחות", "error");
+                return false;
+            } else if (filesCounter < 1) {
+                return true
+            }
+            break;
+        case EMPLOYMENT_STATUS.Employee:
+            if (filesCounter < 3 && !isForDisable) {
+                handleOpenMessage("יש לעלות את כל תלושי השכר הרשומים למעלה", "error");
+                return false;
+            } else if (filesCounter < 3) {
+                return true
+            }
+            break;
+        case EMPLOYMENT_STATUS.Independent:
+            if (filesCounter < 1 && !isForDisable) {
+                handleOpenMessage("יש לעלות מסמך אחד לפחות", "error");
+                return false;
+            } else if (filesCounter < 1) {
+                return true
+            }
+            break;
+        case EMPLOYMENT_STATUS.Combined:
+            if (filesCounter < 4 && !isForDisable) {
+                handleOpenMessage("יש לעלות את כל המסמכים הרשומים למעלה", "error");
+                return false;
+            } else if (filesCounter < 4) {
+                return true
+            }
+            break;
+    }
+
+    if (isForDisable) {
+        return false
+    } else {
+        return true;
+    }
+
+};
