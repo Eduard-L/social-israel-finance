@@ -1,7 +1,6 @@
 import { useContext } from "react";
 import { DataContext } from "../../context/DataContext";
 import { useState } from "react";
-import UploadIcon from "@mui/icons-material/Upload";
 import { Button, Typography } from "@mui/material";
 import { File } from "./File";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
@@ -12,13 +11,13 @@ import {
 } from "../../Interface/EmploymentStatus";
 import {
   getPreviousMonthsString,
+  handleIsOcr,
   handleTitleForUploader,
   handleUserDocsCounterValidation,
 } from "../../helpers/handlers";
 import { v4 as uuidv4 } from "uuid";
 
-import { TextField } from "@material-ui/core";
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import { UploadBlock } from "../features/UploadBlock";
 
 export function FileUploader({}) {
   const { data, setStep, step, setData, handleOpenMessage } =
@@ -26,13 +25,17 @@ export function FileUploader({}) {
   const { direction, employeeInfo, translation, userName, isEnglish } = data;
   const [passwordDoc, setPasswordDoc] = useState("");
   const [isUploadBlockVisible, setIsUploadBlockVisible] = useState(false);
+  const [isUploadBlock2Visible, setIsUploadBlock2Visible] = useState(false);
 
   const [files, setFiles] = useState(data?.files ?? []);
+  const [filesCombined, setFilesCombined] = useState(data?.filesCombined ?? []);
+
   const isBtnDisabled = handleUserDocsCounterValidation(
     files.length,
     employeeInfo?.employmentStatus,
     handleOpenMessage,
-    true
+    true,
+    filesCombined.length
   );
 
   const currentMonth = getPreviousMonthsString();
@@ -54,18 +57,22 @@ export function FileUploader({}) {
     );
     if (!validation) return;
 
-    setData({ ...data, files: files });
+    setData({ ...data, files: files, filesCombined: filesCombined });
     setStep(step + 1);
   };
 
-  const handleChange = async (e) => {
+  const handleChange = async (e, type) => {
+    const filesArr = type === "1" ? files : filesCombined;
+    const setFilesHandler = type === "1" ? setFiles : setFilesCombined;
+    const isVisible =
+      type === "1" ? setIsUploadBlockVisible : setIsUploadBlock2Visible;
     if (!passwordDoc) {
       handleOpenMessage(`נא הזן סיסמא או הזן 0`, "error");
       return;
     }
     if (!e.target.files[0]) return;
     let counter = e.target.files[0].size;
-    files.forEach((f) => {
+    filesArr.forEach((f) => {
       counter = counter + f.file.size;
     });
     if (counter > 6000000) {
@@ -73,19 +80,25 @@ export function FileUploader({}) {
       handleOpenMessage(`${translation.uploadFilesValidation}`, "warning");
       return;
     }
+
     const f = {
       file: await convertBase64(e.target.files[0]),
-      id: e.target.files[0].name,
+      id: uuidv4(),
+      name: e.target.files[0].name,
       passwordDoc: passwordDoc,
+      isOcr: handleIsOcr(employeeInfo?.employmentStatus, type),
     };
-    setFiles([...files, f]);
-    setIsUploadBlockVisible(false);
+    setFilesHandler([...filesArr, f]);
+    isVisible(false);
     setPasswordDoc("");
   };
 
-  const handleDeleteFile = (id) => {
-    const newFiles = files.filter((f) => f.id !== id);
-    setFiles(newFiles);
+  const handleDeleteFile = (id, type) => {
+    debugger;
+    const filesArr = type === "1" ? files : filesCombined;
+    const setFilesArr = type === "1" ? setFiles : setFilesCombined;
+    const newFiles = filesArr.filter((f) => f.id !== id);
+    setFilesArr(newFiles);
   };
 
   const convertBase64 = (file) => {
@@ -105,7 +118,7 @@ export function FileUploader({}) {
     <div className="flex flex-col items-center justify-between w-full h-full">
       <div
         className="flex flex-col items-center w-full"
-        style={{ maxHeight: "85%", overflowY: "auto" }}
+        style={{ maxHeight: "82%", overflowY: "auto" }}
       >
         <div
           className="flex flex-row w-full"
@@ -135,6 +148,35 @@ export function FileUploader({}) {
         >
           {handleTitleForUploader(employeeInfo?.employmentStatus, translation)}
         </Typography>
+
+        {filesCombined.length > 0 ? (
+          <div className="mt-4 w-full">
+            {filesCombined.map((f) => (
+              <File
+                key={f.id}
+                fileName={f.name}
+                onDelete={(e) => handleDeleteFile(e, "0")}
+                id={f.id}
+              />
+            ))}
+          </div>
+        ) : (
+          ""
+        )}
+
+        {employeeInfo?.employmentStatus === EMPLOYMENT_STATUS.Combined ? (
+          <UploadBlock
+            type="0"
+            isUploadBlockVisible={isUploadBlock2Visible}
+            setIsUploadBlockVisible={setIsUploadBlock2Visible}
+            data={data}
+            handleChange={handleChange}
+            passwordDoc={passwordDoc}
+            setPasswordDoc={setPasswordDoc}
+          />
+        ) : (
+          ""
+        )}
 
         {employeeInfo?.employmentStatus === EMPLOYMENT_STATUS.Combined ||
         employeeInfo?.employmentStatus === EMPLOYMENT_STATUS.Independent ? (
@@ -189,84 +231,30 @@ export function FileUploader({}) {
           ""
         )}
 
-        <div className="mt-6 mb-6 w-full">
-          {files.map((f) => (
-            <File
-              key={uuidv4()}
-              fileName={f.id}
-              onDelete={handleDeleteFile}
-              id={f.id}
-            />
-          ))}
-        </div>
-
-        {isUploadBlockVisible ? (
-          ""
+        {files.length > 0 ? (
+          <div className="mt-4  w-full">
+            {files.map((f) => (
+              <File
+                key={f.id}
+                fileName={f.name}
+                onDelete={(e) => handleDeleteFile(e, "1")}
+                id={f.id}
+              />
+            ))}
+          </div>
         ) : (
-          <Button
-            variant="outlined"
-            color="primary"
-            component="span"
-            className="rounded-full "
-            style={{
-              width: 155,
-            }}
-            onClick={() => setIsUploadBlockVisible(true)}
-          >
-            <AddCircleOutlineIcon />
-          </Button>
+          ""
         )}
 
-        <div
-          className={` flex flex-col justify-center w-full ${
-            isUploadBlockVisible ? "" : "hidden"
-          }`}
-        >
-          <TextField
-            id="standard-basic"
-            variant="outlined"
-            type="number"
-            style={{ direction: direction }}
-            required
-            className="w-full input_type_password"
-            inputProps={{ minLength: 1 }}
-            InputProps={{
-              inputProps: {
-                style: { padding: "10px", fontSize: "15px" }, // Adjust the padding value according to your needs
-                className: "input_type_password",
-              },
-            }}
-            value={passwordDoc}
-            error=""
-            helperText=""
-            placeholder="נא להזין סיסמא לתלוש. אם אין להזין 0"
-            onChange={(e) => setPasswordDoc(e.target.value)}
-          />
-          <input
-            type="file"
-            accept="*"
-            style={{ display: "none" }}
-            id="contained-button-file"
-            onChange={handleChange}
-          />
-          <label
-            htmlFor="contained-button-file"
-            className="flex justify-center"
-          >
-            <Button
-              variant="outlined"
-              color="primary"
-              component="span"
-              className="rounded-full mt-4"
-              style={{
-                width: 155,
-              }}
-            >
-              Upload
-              <UploadIcon />
-            </Button>
-          </label>
-        </div>
+        <UploadBlock
+          type="1"
+          isUploadBlockVisible={isUploadBlockVisible}
+          data={data}
+          handleChange={handleChange}
+          passwordDoc={passwordDoc}
+          setPasswordDoc={setPasswordDoc}
+          setIsUploadBlockVisible={setIsUploadBlockVisible}
+        />
       </div>
       <div className="flex flex-row justify-between w-full">
         <Button

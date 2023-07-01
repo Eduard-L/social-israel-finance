@@ -20,8 +20,16 @@ export function AdditionalInfo() {
 
   const handleSendAllInfo = async (finalInfo) => {
     setIsLoading(true);
+    const { files, filesCombined } = finalInfo;
+
+    if (filesCombined.length > 0) {
+      filesCombined.forEach((f) => {
+        files.push(f);
+      });
+    }
 
     try {
+      delete finalInfo.filesCombined;
       delete finalInfo.translation;
       const response = await api.handleSubmit(
         finalInfo,

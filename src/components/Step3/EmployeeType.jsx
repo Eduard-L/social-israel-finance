@@ -38,6 +38,7 @@ export function EmployeeType({}) {
     setData({
       ...data,
       files: [],
+      filesCombined: [],
       employeeInfo: {
         employmentStatus: t,
         lastTimeUpdatedSalary: lastUpdatedSalaryDate,

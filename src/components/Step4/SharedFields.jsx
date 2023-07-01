@@ -20,7 +20,6 @@ export function SharedFields({
     startMonthSelfEmployee,
     startMonthContractEmployee,
   } = employeeForm;
-  console.log(isSelfEmployee);
 
   const [jobTitle, setJobTitle] = useState(() => {
     if (isSelfEmployee && jobTitleSelfEmployee) {

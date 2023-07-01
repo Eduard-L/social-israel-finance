@@ -88,7 +88,7 @@ export const handleTitleForUploader = (employeeStatus, translation) => {
     }
 };
 
-export const handleUserDocsCounterValidation = (filesCounter, employmentStatus, handleOpenMessage, isForDisable) => {
+export const handleUserDocsCounterValidation = (filesCounter, employmentStatus, handleOpenMessage, isForDisable, filesCombinedCounter) => {
 
     switch (employmentStatus) {
         case EMPLOYMENT_STATUS.Not_Employed:
@@ -116,10 +116,11 @@ export const handleUserDocsCounterValidation = (filesCounter, employmentStatus, 
             }
             break;
         case EMPLOYMENT_STATUS.Combined:
-            if (filesCounter < 4 && !isForDisable) {
+
+            if (filesCounter < 1 && !isForDisable && filesCombinedCounter < 3) {
                 handleOpenMessage("יש לעלות את כל המסמכים הרשומים למעלה", "error");
                 return false;
-            } else if (filesCounter < 4) {
+            } else if (filesCounter < 1 || filesCombinedCounter < 3) {
                 return true
             }
             break;
@@ -132,3 +133,31 @@ export const handleUserDocsCounterValidation = (filesCounter, employmentStatus, 
     }
 
 };
+
+
+export const handleIsOcr = (employmentStatus, type) => {
+
+    switch (employmentStatus) {
+        case EMPLOYMENT_STATUS.Not_Employed:
+            return false
+            break;
+
+        case EMPLOYMENT_STATUS.Employee:
+            return true
+            break;
+
+        case EMPLOYMENT_STATUS.Independent:
+            return false
+            break;
+
+        case EMPLOYMENT_STATUS.Combined:
+            if (type === '1') {
+                return false
+            } else {
+                return true
+            }
+            break;
+    }
+
+    return false
+}
