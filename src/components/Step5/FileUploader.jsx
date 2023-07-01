@@ -173,6 +173,7 @@ export function FileUploader({}) {
             handleChange={handleChange}
             passwordDoc={passwordDoc}
             setPasswordDoc={setPasswordDoc}
+            setOtherBlockVisible={setIsUploadBlockVisible}
           />
         ) : (
           ""
@@ -254,6 +255,7 @@ export function FileUploader({}) {
           passwordDoc={passwordDoc}
           setPasswordDoc={setPasswordDoc}
           setIsUploadBlockVisible={setIsUploadBlockVisible}
+          setOtherBlockVisible={setIsUploadBlock2Visible}
         />
       </div>
       <div className="flex flex-row justify-between w-full">

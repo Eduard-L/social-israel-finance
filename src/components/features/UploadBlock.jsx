@@ -10,6 +10,7 @@ export function UploadBlock({
   handleChange,
   passwordDoc,
   setPasswordDoc,
+  setOtherBlockVisible,
 }) {
   const { direction } = data;
   return (
@@ -70,7 +71,10 @@ export function UploadBlock({
           style={{
             width: 155,
           }}
-          onClick={() => setIsUploadBlockVisible(true)}
+          onClick={() => {
+            setIsUploadBlockVisible(true);
+            setOtherBlockVisible(false);
+          }}
         >
           <AddCircleOutlineIcon />
         </Button>
