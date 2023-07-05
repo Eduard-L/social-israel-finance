@@ -75,7 +75,7 @@ export const translationsObj = {
         pleaseFillGrossSalary: "הזן שכר ברוטות, לפחות 3 תווים",
         percentError: "הזן ערך בין 0 ל 100",
         uploadPayCheckOne: " יש לעלות אישור על מעמד לא עובד מביטוח לאומי עבור חודשים הבאים:",
-        uploadPayCheckTwo: "שכיר/ה נא לעלות 3 תלושי שכר עבור חודשים",
+        uploadPayCheckTwo: " נא לעלות 3 תלושי שכר עבור חודשים",
         uploadFilesValidation: "לא ניתן לעלות קבצים הגדולים מ 6 מגה-בייט",
         helpUploading: "לעזרה בהעלאת קבצים",
         Notes: "הערות נוספות",

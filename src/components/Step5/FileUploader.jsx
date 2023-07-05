@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { DataContext } from "../../context/DataContext";
 import { useState } from "react";
 import { Button, Typography } from "@mui/material";
+import instructionsFile from "../../assets/Instructions-Bituah-leumi.pdf";
 import { File } from "./File";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import {
@@ -186,7 +187,7 @@ export function FileUploader({}) {
               className=" mt-4"
               style={{ direction: direction, fontSize: "16px" }}
             >
-              עצמאי/ת נא לעלות את <b>אחד</b> מהמסמכים הבאים עבור חודשים-
+              נא לעלות את <b>אחד</b> מהמסמכים הבאים עבור חודשים-
               {currentMonth}
             </Typography>
             <div className=" mt-2">
@@ -201,13 +202,13 @@ export function FileUploader({}) {
                 className="text-start w-full"
                 style={{ direction: direction, fontSize: "14px" }}
               >
-                2.דוח הכנסות של הרבעון האחרון ממערכת חשבונית ירוקה
+                2.כל הקבלות ו/או חשבוניות מס/קבלות שהפקת ברבעון האחרון.
               </Typography>
               <Typography
                 className="text-start w-full"
                 style={{ direction: direction, fontSize: "14px" }}
               >
-                3. דו"ח סיכום חודש ממערכת חשבונית ירוקה.
+                3. דו"ח הכנסות על הרבעון האחרון ממערכת חשבונית ירוקה
               </Typography>
             </div>
           </div>
